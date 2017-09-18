@@ -4,9 +4,7 @@ Prerequesites - packages 'raster', 'rgdal', 'maptools', 'shapefiles' and 'xlsx' 
 
 Installation  - The CropPhenology package can be installed from GitHub repository using 'Devtools' package. Hence, Devtools should be installed and loaded prior to the CropPhenology installation. The following code lines provide the installation steps:
 
-install.packages ("devtools")
-library(devtools)
-install_github("SofanitAraya/CropPhenology")
+install.packages ("devtools");library(devtools);install_github("SofanitAraya/CropPhenology")
 
 Running the tests - Two test data are availabel with the installation. It can be run from the R program.
 
