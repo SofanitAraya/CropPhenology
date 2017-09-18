@@ -1,0 +1,146 @@
+* using log directory 'E:/CropPhenology/CropPhenology.Rcheck'
+* using R version 3.3.2 (2016-10-31)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* using session charset: ISO8859-1
+* checking for file 'CropPhenology/DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'CropPhenology' version '0.1.0'
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+Depends: includes the non-default packages:
+  'foreign' 'raster' 'sp' 'maptools' 'shapefiles' 'rgdal' 'Rcpp'
+  'rgeos'
+Adding so many packages to the search path is excessive and importing
+selectively is preferable.
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .RData
+  .Rhistory
+  .gitignore
+  .Rproj.user
+  .git
+These were most likely included in error. See section 'Package
+structure' in the 'Writing R Extensions' manual.
+* checking for portable file names ... OK
+* checking whether package 'CropPhenology' can be installed ... OK
+* checking installed package size ... NOTE
+  installed size is 562.4Mb
+  sub-directories of 1Mb or more:
+    extdata  560.9Mb
+    help       1.5Mb
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+Checking should be performed on sources prepared by 'R CMD build'.
+Package listed in more than one of Depends, Imports, Suggests, Enhances:
+  'rgdal'
+A package should be listed in only one of these fields.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... WARNING
+Found the following directory with the name of a check directory:
+  ./CropPhenology.Rcheck
+Most likely, these were included erroneously.
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking dependencies in R code ... WARNING
+'library' or 'require' call not declared from: 'xlsx'
+'library' or 'require' calls to packages already attached by Depends:
+  'maptools' 'raster' 'rgdal' 'rgeos' 'shapefiles'
+  Please remove these calls from your code.
+'library' or 'require' call to 'xlsx' in package code.
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+Packages in Depends field not imported from:
+  'Rcpp' 'foreign' 'maptools' 'raster' 'rgdal' 'rgeos' 'shapefiles'
+  'sp'
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+MultiPointsPlot: no visible global function definition for 'read.table'
+MultiPointsPlot: no visible global function definition for 'par'
+MultiPointsPlot: no visible global function definition for 'ts.plot'
+MultiPointsPlot: no visible global function definition for 'ts'
+MultiPointsPlot: no visible global function definition for 'axis'
+PhenoMetrics: no visible global function definition for
+  'install.packages'
+PhenoMetrics: no visible global function definition for 'stack'
+PhenoMetrics: no visible global function definition for 'par'
+PhenoMetrics: no visible global function definition for 'readOGR'
+PhenoMetrics: no visible global function definition for 'spTransform'
+PhenoMetrics: no visible global function definition for 'crs'
+PhenoMetrics: no visible global function definition for 'coordinates'
+PhenoMetrics: no visible global function definition for 'extract'
+PhenoMetrics: no visible global function definition for 'write.csv'
+PhenoMetrics: no visible global function definition for 'crop'
+PhenoMetrics: no visible global function definition for 'mask'
+PhenoMetrics: no visible global function definition for
+  'rasterToPoints'
+PhenoMetrics: no visible global function definition for 'raster'
+PhenoMetrics: no visible global function definition for 'crs<-'
+PhenoMetrics: no visible global function definition for 'writeRaster'
+PhenoMetrics: no visible global function definition for
+  'rasterToPolygons'
+PhenoMetrics: no visible global function definition for 'plot'
+PhenoMetrics: no visible global function definition for
+  'terrain.colors'
+SinglePhenology: no visible global function definition for 'ts'
+Undefined global functions or variables:
+  axis coordinates crop crs crs<- extract install.packages mask par
+  plot raster rasterToPoints rasterToPolygons read.table readOGR
+  spTransform stack terrain.colors ts ts.plot write.csv writeRaster
+Consider adding
+  importFrom("grDevices", "terrain.colors")
+  importFrom("graphics", "axis", "par", "plot")
+  importFrom("stats", "ts", "ts.plot")
+  importFrom("utils", "install.packages", "read.table", "stack",
+             "write.csv")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'SinglePhenology'
+  'AnnualTS'
+Documented arguments not in \usage in documentation object 'SinglePhenology':
+  'AnnualTS-'
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter 'Writing R documentation files' in the 'Writing R
+Extensions' manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... ERROR
+Running examples in 'CropPhenology-Ex.R' failed
+The error most likely occurred in:
+
+> ### Name: PhenoMetrics
+> ### Title: Phenologic metrics from time series vegetation index data
+> ### Aliases: PhenoMetrics
+> ### Keywords: Phenology, Time-series image, remote satellite sensing,
+> 
+> ### ** Examples
+> 
+> EXAMPLE - 1
+Error: object 'EXAMPLE' not found
+Execution halted
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 3 WARNINGs, 5 NOTEs

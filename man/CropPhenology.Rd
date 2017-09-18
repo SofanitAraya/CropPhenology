@@ -11,12 +11,16 @@ Extract phenological metrics from time series vegetation index data
 
 \details{
 Introduction
+
+
 Multi temporal vegetation index data can be used to get information on seasonal vegetation growth dynamics. This information indicates vegetation phenological growth stages and conditions of environmental factors influencing the vegetation growth. In cropping regions the crop growth dynamics observed from multi temporal vegetation index data has been used in applications such as crop type detection (Zhong et.al. 2011, Roerink et.al. 2011), regional crop yield estimation (Hill et.al. 2003) and many more related studies. Moreover, the long term vegetation dynamics can provide information about influential environmental factors such as soil property mapping (Araya et,al. 2016).
 Plotting a time series of vegetation index values across time creates a curve that summarises the vegetation dynamics (Figure 1). Extraction of seasonal parameters is an essential step for analysing such vegetation dynamics curve. CropPhenology package has been developed to extract phenological parameters from time series vegetation index data in cropping regions.
 
 \figure{Figure1}
 
 Overview of data processing
+
+
 CropPhenology has two functions: PhenoMetrics and MultiPointsPlots.
 PhenoMetrics:- takes the path for the time series vegetation index data and the vector file that defines the Area of Interest (AOI). It extracts fifteen phenological metrics (Figure 2) which represent the seasonal growth condition of the crop at each pixel for the season. The output is presented as a raster stack of phenological metrics or a table of phenological metrics for point AOI.  Table 1 summaises the defined metrics and their descriptions.
 

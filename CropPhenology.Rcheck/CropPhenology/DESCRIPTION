@@ -1,0 +1,19 @@
+Package: CropPhenology
+Type: Package
+Title: Extract phenologic metrics from timeseries vegetation index data
+Version: 0.1.0
+Author: Sofanit Araya, Bertram Ostendorf, Megan Lewis and Greg Lyle
+Maintainer: Sofanit Araya <sofanitgirma.araya@adelaide.edu.au>
+Description: CropPhenology-package
+License: GPL (>=2)
+Encoding: UTF-8
+URL: https://github.com/SofanitAraya/CropPhenology,
+        http://cropphenology.wix.com/package
+Repository: github
+Depends: foreign, raster, sp (>= 1.0-13), maptools, shapefiles,
+        rgdal,Rcpp, rgdal, rgeos
+SystemRequirments: R (> 3.0)
+LazyLoad: true
+LazyData: true
+RoxygenNote: 6.0.1
+Built: R 3.3.2; ; 2017-09-18 07:12:09 UTC; windows

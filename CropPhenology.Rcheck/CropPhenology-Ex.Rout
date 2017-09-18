@@ -1,0 +1,70 @@
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "CropPhenology"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> options(pager = "console")
+> library('CropPhenology')
+Loading required package: foreign
+Loading required package: raster
+Loading required package: sp
+Loading required package: maptools
+Checking rgeos availability: TRUE
+Loading required package: shapefiles
+
+Attaching package: 'shapefiles'
+
+The following objects are masked from 'package:foreign':
+
+    read.dbf, write.dbf
+
+Loading required package: rgdal
+rgdal: version: 1.2-5, (SVN revision 648)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.0.1, released 2015/09/15
+ Path to GDAL shared files: C:/R-3.3.2/library/rgdal/gdal
+ Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+ Path to PROJ.4 shared files: C:/R-3.3.2/library/rgdal/proj
+ Linking to sp version: 1.2-4 
+Loading required package: Rcpp
+Loading required package: rgeos
+rgeos version: 0.3-22, (SVN revision 544)
+ GEOS runtime version: 3.5.0-CAPI-1.9.0 r4084 
+ Linking to sp version: 1.2-4 
+ Polygon checking: TRUE 
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("PhenoMetrics")
+> ### * PhenoMetrics
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: PhenoMetrics
+> ### Title: Phenologic metrics from time series vegetation index data
+> ### Aliases: PhenoMetrics
+> ### Keywords: Phenology, Time-series image, remote satellite sensing,
+> 
+> ### ** Examples
+> 
+> EXAMPLE - 1
+Error: object 'EXAMPLE' not found
+Execution halted

@@ -16,47 +16,19 @@ PhenoMetrics(Path, BolAOI, Percentage, Smoothing)
 \item{Smoothing}{- Optional logical value - if the user chooses to use smoothed curve or row/unsmoothed curve. If "Smoothing' is set to TRUE, the moving avegare filter will be applied to the vegetation index curve. The default value, if not provided, is FALSE, then the unsmoothed row data be used for the analysis.}
 }
 \value{
-OnsetV - NDVI value at the start of continuous positive slope between successive NDVI values above the user defined percentage threshold. It represent early gorth srages (seedling)
-
-OnsetT - MODIS acquisition time when OnsetV is derived.
-
-MaxV - the annual maximum NDVI, represents full canopy coverage during Anthesis stage
-
-MaxT - the time when the maximum NDVI occurs, represents anthesis/flowering stage
-
-OffsetV - NDVI value measured at the lowest slope below a user defined percentage threshold.
-
-OffsetT - the time when the offsetV derived, represents time when crop has ripened
-
-LengthGS- the length of the growing season between Onset and Offset
-
-BeforeMaxT - The duration between the OnsetT and MaxT
-
-AfterMaxT - The duration between the MaxT and OffsetT
-
-GreenUpSlope- The rate at which NDVI increases from the OnsetV to MaxV over the time of the difference between MaxT and OnsetT
-
-BrownDownSlope - The rate at which NDVI decreases from MaxV to OffsetV over the difference between OffsetT and MaxT
-
-TINDVI - The sum of NDVI values attained at each image date within the growing season measured by the area under the NDVI curve.
-
-TINDVIBeforeMax - the integral area under the curve between Onset and Maximum NDVI, indicates the pre-anthesis crop growth.
-
-TINDVIAfterMax - the integral area under the curve between Maximum NDVI and Offset, indicates the post-anthesis growth.
-
-Asymmetry - the difference between AreaBeforeMax and AreaAfterMax. It measures which part of the growing season attain relatively higher accumulated NDVI values
+PhenoStack.img - a raster stack of 15 images in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry
 }
 \description{
 This function extracts 15 phenologic metrics from time series vegetaion index data, as raster and Ascii files. The function takes path of the vegetation index data and the boolean Value for BolAOI (True- if there is AOI polygon, FALSE- if the parameters are calculated for the whole region).
 }
 \examples{
-# EXAMPLE - 1
+EXAMPLE - 1
 
-#PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
+PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
 
-# EXAMPLE - 2
+EXAMPLE - 2
 
-#PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
+PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
 
 
 }
@@ -64,7 +36,7 @@ This function extracts 15 phenologic metrics from time series vegetaion index da
 MultiPointsPlot (Path, N,Id1, Id2...IdN)
 }
 \author{
-Sofanit Araya
+Sofanit Araya, Bertram Ostendorf, Megan Lewis and Greg Lyle
 }
 \keyword{Phenology,}
 \keyword{Time-series}

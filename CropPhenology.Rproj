@@ -9,7 +9,7 @@ UseSpacesForTab: No
 NumSpacesForTab: 2
 Encoding: ISO8859-1
 
-RnwWeave: Sweave
+RnwWeave: knitr
 LaTeX: pdfLaTeX
 
 AutoAppendNewline: Yes
