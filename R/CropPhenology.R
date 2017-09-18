@@ -147,7 +147,7 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
 
   if (BolAOI == TRUE){
     AOI=dir(pattern="*.shp$")
-    extent(AOI)=extent(hugeStack)
+#    extent(AOI)=extent(hugeStack)
     NMAOI=sub(".shp","",AOI, fixed=TRUE)
     shp=readOGR(Path, NMAOI)
     #shp=readShapePoly(AOI)
