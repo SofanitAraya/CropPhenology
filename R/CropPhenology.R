@@ -826,7 +826,7 @@ MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
     }
 
 
-    if ((Id1>length(AP$T1)) || (Id2>length(AP$T1)) || (Id3>length(AP$T1))){
+    if ((Id1>length(AP$Id)) || (Id2>length(AP$Id)) || (Id3>length(AP$Id))){
       stop ('Id out of range')
     }
 
@@ -863,7 +863,7 @@ MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
     }
 
 
-    if ((Id1>length(AP$T1)) || (Id2>length(AP$T1)) || (Id3>length(AP$T1)) || (Id4>length(AP$T1)) || (Id5>length(AP$T1)) ){
+    if ((Id1>length(AP$Id)) || (Id2>length(AP$Id)) || (Id3>length(AP$Id)) || (Id4>length(AP$Id)) || (Id5>length(AP$Id)) ){
       stop ('Id out of range')
     }
 
