@@ -161,7 +161,7 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
       for (i in 1:nrow(ModisCurves)){
         PhenoArray[i,] <- SinglePhenology(ModisCurves[i,],15, FALSE)
       }
-      cnames = c('x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','Area_Total','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+      cnames = c('id', 'x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','Area_Total','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
 
       PhenoDataframe = data.frame(cbind(pcor[,1], pcor[,2],PhenoArray))
       PointDataframe= data.frame(cbind(pcor[,1], pcor[,2], ModisCurves))
