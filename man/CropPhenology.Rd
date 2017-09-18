@@ -30,23 +30,19 @@ PhenoMetrics:- takes the path for the time series vegetation index data and the 
 
 MultiPointsPlots:-  provides the user with the ability to visualise the NDVI curve by plotting the temporal sequences of NDVI values of user selected raster pixels (maximum of five). This allows the user to observe the spatial and temporal differences in relative dynamics of the vegetation index for the selected points. Figure 3 shows example for the output of MultiPointsPlots.
 
-
-
-  \figure{Figure4}
+\figure{Figure4}
 
 }
 
-\author{
-\packageAuthor{CropPhenology}
-
-}
 \references{
-{Henebry, G., de Beurs, K., 2013. Remote Sensing of Land Surface Phenology: A Prospectus, in: Schwartz, M.D. (Ed.), Phenology: An Integrative Environmental Science. \emph{Springer Netherlands, pp. 385-411.}}
 
+{Araya, S., Lyle, G., Lewis, M., and Ostendorf, B. 2016. Phenologic metrics derived from MODIS NDVI as indicators for Plant Available Water-holding Capacity.\emph{ Ecological Indicators} \bold{60:1263-1272}. http://dx.doi.org/10.1016/j.ecolind.2015.09.012}
+{}
+{Hill, M. J. and Donald, G. E. 2003. Estimating spatio-temporal patterns of agricultural productivity in fragmented landscapes using AVHRR NDVI time series. \emph{Remote Sensing of Environment} \bold{84:367-384.} DOI:10.1016/s0034-4257(02)00128-1 }
+{}
+{Roerink, G. J., Danes, M. H. G. I., Prieto, O. G., De Wit, A. J. W., and Van Vliet, A. J. H. 2011. Deriving plant phenology from remote sensing.\emph{ in 6th International Workshop on the Analysis of Multi-temporal Remote Sensing Images}, Trento, Italy, \bold{Pages 261-264}}
+{}
 {Zhong, L., Hawkins, T., Biging, G., Gong, P., 2011. A phenology-based approach to map crop types in the San Joaquin Valley, California.\emph{International Journal of Remote Sensing,} \bold{32, 7777-7804.}}
-
-{Sakamoto, T., Gitelson, A.A., Arkebauer, T.J., 2013. MODIS-based corn grain yield estimation model incorporating crop phenology information.\emph{Remote Sensing of Environment,}\bold{131, 215-231.}}
-
-{Bolton, D.K., Friedl, M.A., 2013. Forecasting crop yield using remotely sensed vegetation indices and crop phenology metrics. \emph{Agricultural and Forest Meteorology,}\bold{173, 74-84.}}
 }
+
 \keyword{ package }

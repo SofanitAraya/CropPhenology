@@ -61,10 +61,33 @@ rgeos version: 0.3-22, (SVN revision 544)
 > ### Name: PhenoMetrics
 > ### Title: Phenologic metrics from time series vegetation index data
 > ### Aliases: PhenoMetrics
-> ### Keywords: Phenology, Time-series image, remote satellite sensing,
+> ### Keywords: Phenology Time-series image remote satellite sensing
 > 
 > ### ** Examples
 > 
-> EXAMPLE - 1
-Error: object 'EXAMPLE' not found
-Execution halted
+> #EXAMPLE - 1
+> 
+> #PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
+> 
+> #EXAMPLE - 2
+> 
+> # PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
+> 
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  1.15 0.04 1.21 NA NA 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

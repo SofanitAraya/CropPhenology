@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.12.6)  18 SEP 2017 16:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.12.6)  18 SEP 2017 19:22
 entering extended mode
-**C:/Users/a1602297/AppData/Local/Temp/RtmpmCQxYf/Rd2pdf27c4d345e25/Rd2.tex
-(C:/Users/a1602297/AppData/Local/Temp/RtmpmCQxYf/Rd2pdf27c4d345e25/Rd2.tex
+**C:/Users/a1602297/AppData/Local/Temp/Rtmp8iT6o0/Rd2pdf1e7036b7394a/Rd2.tex
+(C:/Users/a1602297/AppData/Local/Temp/Rtmp8iT6o0/Rd2pdf1e7036b7394a/Rd2.tex
 LaTeX2e <2015/01/01> patch level 2
 Babel <3.9m> and hyphenation patterns for 69 languages loaded.
 
@@ -719,36 +719,30 @@ File: utf8.def 2015/06/27 v1.1n UTF-8 support for inputenc
 
 {C:/Users/a1602297/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 <E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure1.jpg, 
-id=46, 1076.823pt x 600.3228pt>
+id=40, 1076.823pt x 600.3228pt>
 File: E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure1.
 jpg Graphic file (type jpg)
 
 <use E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure1.j
 pg>
 Package pdftex.def Info: E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/he
-lp/figures/Figure1.jpg used on input line 50.
+lp/figures/Figure1.jpg used on input line 52.
 (pdftex.def)             Requested size: 289.29936pt x 161.28322pt.
 
-Overfull \hbox (2.21695pt too wide) in paragraph at lines 52--55
-[]\T1/ptm/m/n/10 Overview of data pro-cess-ing Crop-Phe-nol-ogy has two func-ti
-ons: Phe-no-Met-rics and Mul-ti-PointsPlots.
- []
-
-
 <E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure2.jpg, 
-id=47, 772.3254pt x 555.0336pt>
+id=41, 772.3254pt x 555.0336pt>
 File: E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure2.
 jpg Graphic file (type jpg)
 
 <use E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure2.j
 pg>
 Package pdftex.def Info: E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/he
-lp/figures/Figure2.jpg used on input line 56.
+lp/figures/Figure2.jpg used on input line 60.
 (pdftex.def)             Requested size: 289.29936pt x 207.90842pt.
 
 <E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure3.jpg, 
-id=48, 730.4088pt x 686.0832pt>
-Underfull \vbox (badness 10000) has occurred while \output is active []
+id=42, 730.4088pt x 686.0832pt>
+Underfull \vbox (badness 3514) has occurred while \output is active []
 
  [2 <E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure1.j
 pg>]
@@ -758,18 +752,18 @@ jpg Graphic file (type jpg)
 <use E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure3.j
 pg>
 Package pdftex.def Info: E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/he
-lp/figures/Figure3.jpg used on input line 58.
+lp/figures/Figure3.jpg used on input line 62.
 (pdftex.def)             Requested size: 289.29936pt x 271.73795pt.
 
 <E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure4.jpg, 
-id=57, 866.2764pt x 456.2646pt>
+id=51, 866.2764pt x 456.2646pt>
 File: E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure4.
 jpg Graphic file (type jpg)
 
 <use E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure4.j
 pg>
 Package pdftex.def Info: E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/he
-lp/figures/Figure4.jpg used on input line 64.
+lp/figures/Figure4.jpg used on input line 66.
 (pdftex.def)             Requested size: 289.29936pt x 152.37094pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -784,38 +778,35 @@ jpg>]
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
 File: utf8.def 2015/06/27 v1.1n UTF-8 support for inputenc
 )
-Overfull \hbox (22.94786pt too wide) in paragraph at lines 167--168
+Overfull \hbox (22.94786pt too wide) in paragraph at lines 156--157
 []\T1/ptm/m/n/10 - Op-tional log-i-cal value - if the user chooses to use smoot
 hed curve or row/unsmoothed
  []
 
-[5] ("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
-File: utf8.def 2015/06/27 v1.1n UTF-8 support for inputenc
-) (Rd2.ind [6]
+[5] (Rd2.ind [6]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 3.
-
-[7
+ [7
 
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 223.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 223.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
  (Rd2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 223.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 223.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
 Package rerunfilecheck Info: File `Rd2.out' has not changed.
-(rerunfilecheck)             Checksum: 5C140EC696F1CEF15C1528EF1C917D0D;281.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 223.
+(rerunfilecheck)             Checksum: 130E2C354500D34C73C001B84C2F18F6;218.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 6528 strings out of 493673
- 93778 string characters out of 3143951
- 174139 words of memory out of 3000000
- 9716 multiletter control sequences out of 15000+200000
+ 6515 strings out of 493673
+ 93528 string characters out of 3143951
+ 173139 words of memory out of 3000000
+ 9715 multiletter control sequences out of 15000+200000
  40674 words of font info for 49 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 38i,6n,27p,760b,644s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,6n,27p,761b,644s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}{C:/Program File
 s/MiKTeX 2.9/fonts/enc/dvips/inconsolata/i4-t1-0.enc}<C:/Program Files/MiKTeX 2
 .9/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Program Files/MiKTeX
@@ -824,9 +815,9 @@ ts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/t
 imes/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><
 C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (7 pages, 1163952 bytes).
+Output written on Rd2.pdf (7 pages, 1159450 bytes).
 PDF statistics:
- 154 PDF objects out of 1000 (max. 8388607)
- 42 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 136 PDF objects out of 1000 (max. 8388607)
+ 32 named destinations out of 1000 (max. 500000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

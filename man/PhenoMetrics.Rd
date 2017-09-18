@@ -22,25 +22,22 @@ PhenoStack.img - a raster stack of 15 images in the order of OnsetV, OnsetT, Max
 This function extracts 15 phenologic metrics from time series vegetaion index data, as raster and Ascii files. The function takes path of the vegetation index data and the boolean Value for BolAOI (True- if there is AOI polygon, FALSE- if the parameters are calculated for the whole region).
 }
 \examples{
-EXAMPLE - 1
+#EXAMPLE - 1
 
-PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
+#PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
 
-EXAMPLE - 2
+#EXAMPLE - 2
 
-PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
+# PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
 
 
 }
 \seealso{
 MultiPointsPlot (Path, N,Id1, Id2...IdN)
 }
-\author{
-Sofanit Araya, Bertram Ostendorf, Megan Lewis and Greg Lyle
-}
-\keyword{Phenology,}
+\keyword{Phenology}
 \keyword{Time-series}
-\keyword{image,}
+\keyword{image}
 \keyword{remote}
 \keyword{satellite}
-\keyword{sensing,}
+\keyword{sensing}

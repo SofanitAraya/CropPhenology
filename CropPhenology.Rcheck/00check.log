@@ -114,33 +114,10 @@ to your NAMESPACE file.
 * checking Rd cross-references ... OK
 * checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
-* checking Rd \usage sections ... WARNING
-Undocumented arguments in documentation object 'SinglePhenology'
-  'AnnualTS'
-Documented arguments not in \usage in documentation object 'SinglePhenology':
-  'AnnualTS-'
-
-Functions with \usage entries need to have the appropriate \alias
-entries, and all their arguments documented.
-The \usage entries must correspond to syntactically valid R code.
-See chapter 'Writing R documentation files' in the 'Writing R
-Extensions' manual.
+* checking Rd \usage sections ... OK
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
-* checking examples ... ERROR
-Running examples in 'CropPhenology-Ex.R' failed
-The error most likely occurred in:
-
-> ### Name: PhenoMetrics
-> ### Title: Phenologic metrics from time series vegetation index data
-> ### Aliases: PhenoMetrics
-> ### Keywords: Phenology, Time-series image, remote satellite sensing,
-> 
-> ### ** Examples
-> 
-> EXAMPLE - 1
-Error: object 'EXAMPLE' not found
-Execution halted
+* checking examples ... OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 ERROR, 3 WARNINGs, 5 NOTEs
+Status: 2 WARNINGs, 5 NOTEs

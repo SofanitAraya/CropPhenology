@@ -1,13 +1,13 @@
-#' @author  Sofanit Araya, Bertram Ostendorf, Megan Lewis and Greg Lyle
-
 #======================================================================================================================================
 #                                     PhenoMetrics Function
 #======================================================================================================================================
 #' Phenologic metrics from time series vegetation index data
 #'
-#' @author  Sofanit Araya, Bertram Ostendorf, Megan Lewis and Greg Lyle
 #' @return  PhenoStack.img - a raster stack of 15 images in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry
-#' @keywords Phenology, remote sensing, satellite image, Time-series
+#' @keywords Phenology
+#' @keywords remote sensing
+#' @keywords satellite image
+#' @keywords Time-series
 #' @seealso MultiPointsPlot (Path, N,Id1, Id2...IdN)
 #' @description This function extracts 15 phenologic metrics from time series vegetaion index data, as raster and Ascii files. The function takes path of the vegetation index data and the boolean Value for BolAOI (True- if there is AOI polygon, FALSE- if the parameters are calculated for the whole region).
 #' @param Path - Text value - the path where the time series images saved
@@ -17,13 +17,13 @@
 #'
 #' @export
 #' @examples
-#' EXAMPLE - 1
+#' #EXAMPLE - 1
 #'
-#' PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
+#' #PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
 #'
-#' EXAMPLE - 2
+#' #EXAMPLE - 2
 #'
-#' PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
+#'# PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
 #'
 #'
 
@@ -397,16 +397,7 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
 #===============================================================================================================
 #                                     SinglePhenology Function
 #===============================================================================================================
-# SinglePhenology - calculates phenologic metrics for each pixel and return to the PhenoMetrics function
 
-#' @return return phenologic metrics for a single pixel
-#' @title Phenology plot per pixel
-#' @name SinglePhenology
-#' @param AnnualTS- annual time series
-#' @param Percentage - the percentage threshold for Onset and Offset
-#' @param Smoothing - moving average smoothing applied if TRUE
-#' @description calculates the phenologic metrics for the timeseries of the NDVI sequence.
-#'
 SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
   if(sum(is.na(AnnualTS)) > 0) {
     PVector = rep(NA,15)
@@ -754,13 +745,9 @@ SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
 #' @description MultiPointsPlot function takes the ID for the pixels within the region of interst and returns, the timeseries curves from these points, ploted together. The Id numbers can be obtained from the txt file (AllPixels.txt) outputs.
 #' @keywords Curve from multiple points
 #' @keywords time-series curves
-#' @author Sofanit Araya
-#'
 #' @details This function allows plotting time series curves from multiple points together in a single plot which helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
 #' @details The maximum number of pixeles allowed plotting togther are 5 points.
 #'
-
-#' @references Araya, S., Lyle, G., Lewis, M., Ostendorf, B., 2016. Phenologic metrics derived from MODIS NDVI as indicators for Plant Available Water-holding Capacity. Ecological Indicators 60, 1263-1272.
 #'
 #'
 #' @seealso PhenoMetrics()

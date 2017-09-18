@@ -14,17 +14,17 @@ flush(stderr()); flush(stdout())
 ### Name: PhenoMetrics
 ### Title: Phenologic metrics from time series vegetation index data
 ### Aliases: PhenoMetrics
-### Keywords: Phenology, Time-series image, remote satellite sensing,
+### Keywords: Phenology Time-series image remote satellite sensing
 
 ### ** Examples
 
-EXAMPLE - 1
+#EXAMPLE - 1
 
-PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
+#PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
 
-EXAMPLE - 2
+#EXAMPLE - 2
 
-PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
+# PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
 
 
 

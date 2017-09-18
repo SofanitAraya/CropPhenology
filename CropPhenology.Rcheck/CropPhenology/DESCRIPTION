@@ -16,4 +16,4 @@ SystemRequirments: R (> 3.0)
 LazyLoad: true
 LazyData: true
 RoxygenNote: 6.0.1
-Built: R 3.3.2; ; 2017-09-18 07:12:09 UTC; windows
+Built: R 3.3.2; ; 2017-09-18 09:51:54 UTC; windows
