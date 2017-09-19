@@ -26,7 +26,14 @@ Found the following hidden files and directories:
 These were most likely included in error. See section 'Package
 structure' in the 'Writing R Extensions' manual.
 * checking for portable file names ... OK
-* checking whether package 'CropPhenology' can be installed ... OK
+* checking whether package 'CropPhenology' can be installed ... WARNING
+Found the following significant warnings:
+  Warning: package 'sp' was built under R version 3.3.3
+  Warning: package 'maptools' was built under R version 3.3.3
+  Warning: package 'rgdal' was built under R version 3.3.3
+  Warning: package 'Rcpp' was built under R version 3.3.3
+  Warning: package 'rgeos' was built under R version 3.3.3
+See 'E:/CropPhenology/CropPhenology.Rcheck/00install.out' for details.
 * checking installed package size ... NOTE
   installed size is 562.4Mb
   sub-directories of 1Mb or more:
@@ -120,4 +127,4 @@ to your NAMESPACE file.
 * checking examples ... OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 2 WARNINGs, 5 NOTEs
+Status: 3 WARNINGs, 5 NOTEs

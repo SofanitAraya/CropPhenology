@@ -21,14 +21,14 @@ Plotting a time series of vegetation index values across time creates a curve th
 Overview of data processing
 
 
-CropPhenology has two functions: PhenoMetrics and MultiPointsPlots.
+CropPhenology has two functions: PhenoMetrics and MultiPointsPlot.
 PhenoMetrics:- takes the path for the time series vegetation index data and the vector file that defines the Area of Interest (AOI). It extracts fifteen phenological metrics (Figure 2) which represent the seasonal growth condition of the crop at each pixel for the season. The output is presented as a raster stack of phenological metrics or a table of phenological metrics for point AOI.  Table 1 summaises the defined metrics and their descriptions.
 
 \figure{Figure2}
 
 \figure{Figure3}
 
-MultiPointsPlots:-  provides the user with the ability to visualise the NDVI curve by plotting the temporal sequences of NDVI values of user selected raster pixels (maximum of five). This allows the user to observe the spatial and temporal differences in relative dynamics of the vegetation index for the selected points. Figure 3 shows example for the output of MultiPointsPlots.
+MultiPointsPlot:-  provides the user with the ability to visualise the NDVI curve by plotting the temporal sequences of NDVI values of user selected raster pixels (maximum of five). This allows the user to observe the spatial and temporal differences in relative dynamics of the vegetation index for the selected points. Figure 3 shows example for the output of MultiPointsPlot.
 
 \figure{Figure4}
 

@@ -19,11 +19,11 @@
 #' @examples
 #' #EXAMPLE - 1
 #'
-#' #PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
+#' PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
 #'
 #' #EXAMPLE - 2
 #'
-#'# PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
+#' PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
 #'
 #'
 
@@ -761,6 +761,8 @@ MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
   #print (APP)
   par(mfrow=c(1,1))
 
+  LTS=ncol(AP)
+  LDT=nrow(AP)
   if (N>5){
     warning ('The maximum No of pixel to plot is 5')
 
@@ -773,7 +775,7 @@ MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
     if (missing (Id1) | missing(Id2) | missing (Id3) | missing (Id4) | missing (Id5)){
       stop('Id missed')
     }
-    ts.plot((ts(as.matrix(AP[Id1,])[4:length(APP)])), (ts(as.matrix(AP[Id2,])[4:length(APP)])), (ts(as.matrix(AP[Id3,])[4:length(APP)])), (ts(as.matrix(AP[Id4,])[4:length(APP)])), (ts(as.matrix(AP[Id5,])[4:length(APP)])),  ylim=c(0,1), , col=1:5)
+    ts.plot((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])), (ts(as.matrix(AP[Id5,])[4:LTS])),  ylim=c(0,1), col=1:5)
     axis(2, at=seq(0,1,by=0.1))
 
   }
@@ -789,11 +791,11 @@ MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
 
 
 
-    if ((Id1>length(AP$T1))){
+    if ((Id1>LDT)){
       stop ('Id out of range')
     }
 
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:length(APP)])), ylim=c(0,1))
+    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), ylim=c(0,1))
     axis(2, at=seq(0,1,by=0.1))
   }
 
@@ -808,11 +810,11 @@ MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
     }
 
 
-    if ((Id1>length(AP$T1)) || (Id2>length(AP$T1))){
+    if ((Id1>LDT) || (Id2>LDT)){
       stop ('Id out of range')
     }
 
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:length(APP)])), (ts(as.matrix(AP[Id2,])[4:length(APP)])), ylim=c(0,1), col=1:2)
+    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), ylim=c(0,1), col=1:2)
     axis(2,  at=seq(0,1,by=0.1))
   }
   if (N==3){
@@ -826,11 +828,11 @@ MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
     }
 
 
-    if ((Id1>length(AP$Id)) || (Id2>length(AP$Id)) || (Id3>length(AP$Id))){
+    if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT)){
       stop ('Id out of range')
     }
 
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:length(APP)])), (ts(as.matrix(AP[Id2,])[4:length(APP)])), (ts(as.matrix(AP[Id3,])[4:length(APP)])), ylim=c(0,1), col=1:3)
+    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), ylim=c(0,1), col=1:3)
     axis(2,  at=seq(0,1,by=0.1))
   }
 
@@ -845,11 +847,11 @@ MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
     }
 
 
-    if ((Id1>length(AP$T1)) || (Id2>length(AP$T1)) || (Id3>length(AP$T1)) || (Id4>length(AP$T1))){
+    if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT) || (Id4>LDT)){
       stop ('Id out of range')
     }
 
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:length(APP)])), (ts(as.matrix(AP[Id2,])[4:length(APP)])), (ts(as.matrix(AP[Id3,])[4:length(APP)])), (ts(as.matrix(AP[Id4,])[4:length(APP)])),  ylim=c(0,1), col=1:4)
+    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])),  ylim=c(0,1), col=1:4)
     axis(2, at=seq(0,1,by=0.1))
   }
   if (N==5){
@@ -863,11 +865,11 @@ MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
     }
 
 
-    if ((Id1>length(AP$Id)) || (Id2>length(AP$Id)) || (Id3>length(AP$Id)) || (Id4>length(AP$Id)) || (Id5>length(AP$Id)) ){
+    if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT) || (Id4>LDT) || (Id5>LDT) ){
       stop ('Id out of range')
     }
 
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:length(APP)])), (ts(as.matrix(AP[Id2,])[4:length(APP)])), (ts(as.matrix(AP[Id3,])[4:length(APP)])), (ts(as.matrix(AP[Id4,])[4:length(APP)])), (ts(as.matrix(AP[Id5,])[4:length(APP)])), ylim=c(0,1),  col=1:5)
+    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])), (ts(as.matrix(AP[Id5,])[4:LTS])), ylim=c(0,1),  col=1:5)
     axis(2, at=seq(0,1,by=0.1))
   }
   return ("..........Curves ploted............................")

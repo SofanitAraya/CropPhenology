@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.12.6)  18 SEP 2017 19:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.12.6)  19 SEP 2017 11:02
 entering extended mode
-**C:/Users/a1602297/AppData/Local/Temp/Rtmp8iT6o0/Rd2pdf1e7036b7394a/Rd2.tex
-(C:/Users/a1602297/AppData/Local/Temp/Rtmp8iT6o0/Rd2pdf1e7036b7394a/Rd2.tex
+**C:/Users/a1602297/AppData/Local/Temp/Rtmpaws5LX/Rd2pdf2fc436a53eb3/Rd2.tex
+(C:/Users/a1602297/AppData/Local/Temp/Rtmpaws5LX/Rd2pdf2fc436a53eb3/Rd2.tex
 LaTeX2e <2015/01/01> patch level 2
 Babel <3.9m> and hyphenation patterns for 69 languages loaded.
 
@@ -730,7 +730,7 @@ lp/figures/Figure1.jpg used on input line 52.
 (pdftex.def)             Requested size: 289.29936pt x 161.28322pt.
 
 <E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure2.jpg, 
-id=41, 772.3254pt x 555.0336pt>
+id=41, 723.6636pt x 448.5558pt>
 File: E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure2.
 jpg Graphic file (type jpg)
 
@@ -738,7 +738,7 @@ jpg Graphic file (type jpg)
 pg>
 Package pdftex.def Info: E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/he
 lp/figures/Figure2.jpg used on input line 60.
-(pdftex.def)             Requested size: 289.29936pt x 207.90842pt.
+(pdftex.def)             Requested size: 289.29936pt x 179.31647pt.
 
 <E:/CropPhenology/CropPhenology.Rcheck/CropPhenology/help/figures/Figure3.jpg, 
 id=42, 730.4088pt x 686.0832pt>
@@ -815,7 +815,7 @@ ts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/t
 imes/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><
 C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (7 pages, 1159450 bytes).
+Output written on Rd2.pdf (7 pages, 1169240 bytes).
 PDF statistics:
  136 PDF objects out of 1000 (max. 8388607)
  32 named destinations out of 1000 (max. 500000)

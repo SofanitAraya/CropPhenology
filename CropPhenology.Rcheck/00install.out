@@ -2,11 +2,26 @@
 ** R
 ** inst
 ** preparing package for lazy loading
+Warning: package 'sp' was built under R version 3.3.3
+Warning: package 'maptools' was built under R version 3.3.3
+Warning: package 'rgdal' was built under R version 3.3.3
+Warning: package 'Rcpp' was built under R version 3.3.3
+Warning: package 'rgeos' was built under R version 3.3.3
 ** help
 *** installing help indices
 *** copying figures
 ** building package indices
 ** testing if installed package can be loaded
 *** arch - i386
+Warning: package 'sp' was built under R version 3.3.3
+Warning: package 'maptools' was built under R version 3.3.3
+Warning: package 'rgdal' was built under R version 3.3.3
+Warning: package 'Rcpp' was built under R version 3.3.3
+Warning: package 'rgeos' was built under R version 3.3.3
 *** arch - x64
+Warning: package 'sp' was built under R version 3.3.3
+Warning: package 'maptools' was built under R version 3.3.3
+Warning: package 'rgdal' was built under R version 3.3.3
+Warning: package 'Rcpp' was built under R version 3.3.3
+Warning: package 'rgeos' was built under R version 3.3.3
 * DONE (CropPhenology)

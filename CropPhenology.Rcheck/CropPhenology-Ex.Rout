@@ -25,7 +25,9 @@ Type 'q()' to quit R.
 Loading required package: foreign
 Loading required package: raster
 Loading required package: sp
+Warning: package 'sp' was built under R version 3.3.3
 Loading required package: maptools
+Warning: package 'maptools' was built under R version 3.3.3
 Checking rgeos availability: TRUE
 Loading required package: shapefiles
 
@@ -36,18 +38,21 @@ The following objects are masked from 'package:foreign':
     read.dbf, write.dbf
 
 Loading required package: rgdal
-rgdal: version: 1.2-5, (SVN revision 648)
+Warning: package 'rgdal' was built under R version 3.3.3
+rgdal: version: 1.2-10, (SVN revision 673)
  Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 2.0.1, released 2015/09/15
+ Loaded GDAL runtime: GDAL 2.2.0, released 2017/04/28
  Path to GDAL shared files: C:/R-3.3.2/library/rgdal/gdal
- Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+ Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
  Path to PROJ.4 shared files: C:/R-3.3.2/library/rgdal/proj
- Linking to sp version: 1.2-4 
+ Linking to sp version: 1.2-5 
 Loading required package: Rcpp
+Warning: package 'Rcpp' was built under R version 3.3.3
 Loading required package: rgeos
-rgeos version: 0.3-22, (SVN revision 544)
+Warning: package 'rgeos' was built under R version 3.3.3
+rgeos version: 0.3-23, (SVN revision 546)
  GEOS runtime version: 3.5.0-CAPI-1.9.0 r4084 
- Linking to sp version: 1.2-4 
+ Linking to sp version: 1.2-5 
  Polygon checking: TRUE 
 
 > 
@@ -81,7 +86,7 @@ rgeos version: 0.3-22, (SVN revision 544)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.15 0.04 1.21 NA NA 
+Time elapsed:  1.1 0.04 1.13 NA NA 
 > grDevices::dev.off()
 null device 
           1 
