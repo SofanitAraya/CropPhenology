@@ -558,14 +558,14 @@ SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
   offsetV=0
   crp=TRUE
   z=Max_T+1
-  slopof=(Curve[Max_T+1]-Curve[Max_T])
+  slopof=(Curve[[Max_T+1]]-Curve[[Max_T]])
   slopof=as.matrix(slopof)
   y=2
 
   #slopof - is length of the slope b/n points from Max to Offset
 
   while (z<(length(Curve))){
-    slopof[y]=(Curve[z+1]-Curve[z])
+    slopof[y]=(Curve[[z+1]]-Curve[[z]])
     z=z+1
     y=y+1
   }
@@ -583,14 +583,20 @@ SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
       #print(last)
       #print(last)
       lsof=i
-      #break
+      break
       quick=i
     }
     i=i-1
     lastof=slopof[i]
   }
 
-  if (lsof==0){ #if only the growing season is presented and only increasing
+  DD=lenof-(lsof-1)
+  if (lsof!=0){
+  	offsetV=Curve[[length(Curve)-DD]]
+  	offsetTF=length(Curve)-DD
+  }
+
+    if (lsof==0){ #if only the growing season is presented and only increasing
     k=Max_T+1
     Checked= FALSE
     while (k<(length(Curve)+1)){
@@ -607,36 +613,36 @@ SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
     }
   }
 
-  kof=(Max_T+lsof-1)
-  if (lsof>0){
-    if (Curve[kof]<range2){
-      offsetT=kof
-      offsetV=Curve[kof]
-    }
-    if (Curve[kof]>range2){
-      p=lsof
-      Enter=FALSE
-      while (p<length(slopof)){
-        if ((slopof[p]>(-0.01)) & (Curve[Max_T+p-1]<range2)){
-          offsetT=Max_T+p-1
-          offsetV=Curve[Max_T+p-1]
-          Enter=TRUE
-          break
-        }
-        p=p+1
-      }
-    }
-    if (Enter==FALSE){
-      p=Max_T+lsof-1
-      while (p<(length(Curve)+1)){
-        if (Curve[p]<range2){
-          offsetT=p
-          offsetV=Curve[p]
-        }
-        p=p+1
-      }
-    }
-  }
+  # kof=(Max_T+lsof-1)
+  # if (lsof>0){
+  #   if (Curve[kof]<range2){
+  #     offsetT=kof
+  #     offsetV=Curve[kof]
+  #   }
+  #   if (Curve[kof]>range2){
+  #     p=lsof
+  #     Enter=FALSE
+  #     while (p<length(slopof)){
+  #       if ((slopof[p]>(-0.01)) & (Curve[Max_T+p-1]<range2)){
+  #         offsetT=Max_T+p-1
+  #         offsetV=Curve[Max_T+p-1]
+  #         Enter=TRUE
+  #         break
+  #       }
+  #       p=p+1
+  #     }
+  #   }
+  #   if (Enter==FALSE){
+  #     p=Max_T+lsof-1
+  #     while (p<(length(Curve)+1)){
+  #       if (Curve[p]<range2){
+  #         offsetT=p
+  #         offsetV=Curve[p]
+  #       }
+  #       p=p+1
+  #     }
+  #   }
+  # }
 
   if ((max-offsetV)==0) {
     crp=FALSE
