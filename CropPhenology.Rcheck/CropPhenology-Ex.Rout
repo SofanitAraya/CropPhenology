@@ -86,7 +86,7 @@ rgeos version: 0.3-23, (SVN revision 546)
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.1 0.04 1.13 NA NA 
+Time elapsed:  1.15 0.06 1.23 NA NA 
 > grDevices::dev.off()
 null device 
           1 

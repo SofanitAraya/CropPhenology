@@ -558,6 +558,7 @@ SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
   offsetV=0
   crp=TRUE
   z=Max_T+1
+  #slopof=0
   slopof=(Curve[Max_T+1]-Curve[Max_T])
   slopof=as.matrix(slopof)
   y=2
@@ -576,9 +577,9 @@ SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
   lsof=0
 
     while(i<lenof+1){
-    if (lastof>(-0.01)){
+    if (lastof>(0)){
       #print(last)
-      if (lastof> (-0.01)){
+      if (lastof> (0)){
         #print(last)
         lsof=i
         break
@@ -637,7 +638,7 @@ SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
     }
   }
 
-  if ((max-offsetV)==0) {
+  if ((Max_Value-offsetV)==0) {
     crp=FALSE
     offsetT=length(Curve)
     offsetV=Curve[offsetT]
