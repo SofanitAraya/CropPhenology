@@ -657,7 +657,7 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
     }
   }
 
-  if ((max-offsetV)==0) {
+  if ((Max_V-offsetV)==0) {
     crp=FALSE
     offsetT=length(Curve)
     offsetV=Curve[[offsetT]]
