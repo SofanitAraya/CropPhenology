@@ -558,14 +558,14 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   offsetV=0
   crp=TRUE
   z=Max_T+1
-  slopof=(Curve[Max_T+1]-Curve[Max_T])
+  slopof=(Curve[[Max_T+1]]-Curve[[Max_T]])
   slopof=as.matrix(slopof)
   y=2
 
   #slopof - is length of the slope b/n points from Max to Offset
 
   while (z<(length(Curve))){
-    slopof[y]=(Curve[z+1]-Curve[z])
+    slopof[y]=(Curve[[z+1]]-Curve[[z]])
     z=z+1
     y=y+1
   }
@@ -615,6 +615,11 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
 
   kof=(Max_T+lsof-1)
   if (lsof>0){
+  	while (lsof<1){
+  		if (slopof[lsof-1]>0){
+  		lsof=lsof-1
+  		}
+  	}
     if (Curve[kof]<range2){
       offsetT=kof
       offsetV=Curve[kof]
