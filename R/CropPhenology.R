@@ -558,43 +558,41 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   offsetV=0
   crp=TRUE
   z=Max_T+1
-  slopof=(Curve[[Max_T+1]]-Curve[[Max_T]])
+  slopof=(Curve[Max_T+1]-Curve[Max_T])
   slopof=as.matrix(slopof)
   y=2
 
-  #slopof - is length of the slope b/n points from Max to Offset
-
   while (z<(length(Curve))){
-    slopof[y]=(Curve[[z+1]]-Curve[[z]])
+    slopof[y]=(Curve[z+1]-Curve[z])
     z=z+1
     y=y+1
   }
 
+  #print (slopof)
+  #print(range2)
+
   lenof=length(slopof)
   lastof=slopof[lenof]
-#lastof - the last posetive slope
 
   i=lenof
   #i=len
   lsof=0
 
-    while(i>0){
+
+  while(i>1){
     if (lastof>(-0.01)){
-      #print(last)
-      #print(last)
-      lsof=i
-      break
+      print(lastof)
+      if (lastof> (-0.01)){
+        lsof=i
+        print(lsof)
+      }
       quick=i
     }
     i=i-1
     lastof=slopof[i]
   }
 
-  DD=lenof-(lsof-1)
-  if (lsof!=0){
-  	offsetV=Curve[length(Curve)-DD]
-  	offsetTF=length(Curve)-DD
-  }
+
 
   if (lsof==0){ #if only the growing season is presented and only increasing
     k=Max_T+1
@@ -613,37 +611,46 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
     }
   }
 
+
+
   kof=(Max_T+lsof-1)
+
   if (lsof>0){
-  	while (lsof<1){
-  		if (slopof[lsof-1]>0){
-  		lsof=lsof-1
-  		}
-  	}
+
+  	# if (slopof[lsof-1]>0){
+  	# 	lsof=lsof-1
+  	# 	if (slopof[lsof-1]>0){
+  	# 		lsof=lsof-1
+  	# 		if (slopof[lsof-1]>0){
+  	# 			lsof=lsof-1
+  	# 		}
+  	# 	}
+  	# }
+
     if (Curve[kof]<range2){
+    	print(kof)
       offsetT=kof
       offsetV=Curve[kof]
     }
     if (Curve[kof]>range2){
       p=lsof
-      Enter=FALSE
+      Enter=1
       while (p<length(slopof)){
         if ((slopof[p]>(-0.01)) & (Curve[Max_T+p-1]<range2)){
           offsetT=Max_T+p-1
           offsetV=Curve[Max_T+p-1]
-          Enter=TRUE
+          Enter=Enter+1
           break
         }
         p=p+1
       }
     }
-    if (Enter==FALSE){
+    if (Enter==1){
       p=Max_T+lsof-1
       while (p<(length(Curve)+1)){
         if (Curve[p]<range2){
           offsetT=p
           offsetV=Curve[p]
-          break
         }
         p=p+1
       }
@@ -653,11 +660,15 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   if ((max-offsetV)==0) {
     crp=FALSE
     offsetT=length(Curve)
-    offsetV=Curve[offsetT]
+    offsetV=Curve[[offsetT]]
   }
 
+  #print (lsof)
 
+  #print (offsetV)
+  #print(offsetT)
   offsetTF=offsetT
+
   Offset_Value=offsetV
   Offset_Time= offsetTF
 
