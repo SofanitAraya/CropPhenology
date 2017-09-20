@@ -399,7 +399,7 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
 #                                     SinglePhenology Function
 #===============================================================================================================
 
-SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
+SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   if(sum(is.na(AnnualTS)) > 0) {
     PVector = rep(NA,15)
     return(PVector)
@@ -613,36 +613,36 @@ SinglePhenology <- function(AnnualTS, Percentage = 10, Smoothing = FALSE) {
     }
   }
 
-  # kof=(Max_T+lsof-1)
-  # if (lsof>0){
-  #   if (Curve[kof]<range2){
-  #     offsetT=kof
-  #     offsetV=Curve[kof]
-  #   }
-  #   if (Curve[kof]>range2){
-  #     p=lsof
-  #     Enter=FALSE
-  #     while (p<length(slopof)){
-  #       if ((slopof[p]>(-0.01)) & (Curve[Max_T+p-1]<range2)){
-  #         offsetT=Max_T+p-1
-  #         offsetV=Curve[Max_T+p-1]
-  #         Enter=TRUE
-  #         break
-  #       }
-  #       p=p+1
-  #     }
-  #   }
-  #   if (Enter==FALSE){
-  #     p=Max_T+lsof-1
-  #     while (p<(length(Curve)+1)){
-  #       if (Curve[p]<range2){
-  #         offsetT=p
-  #         offsetV=Curve[p]
-  #       }
-  #       p=p+1
-  #     }
-  #   }
-  # }
+  kof=(Max_T+lsof-1)
+  if (lsof>0){
+    if (Curve[kof]<range2){
+      offsetT=kof
+      offsetV=Curve[kof]
+    }
+    if (Curve[kof]>range2){
+      p=lsof
+      Enter=FALSE
+      while (p<length(slopof)){
+        if ((slopof[p]>(-0.01)) & (Curve[Max_T+p-1]<range2)){
+          offsetT=Max_T+p-1
+          offsetV=Curve[Max_T+p-1]
+          Enter=TRUE
+          break
+        }
+        p=p+1
+      }
+    }
+    if (Enter==FALSE){
+      p=Max_T+lsof-1
+      while (p<(length(Curve)+1)){
+        if (Curve[p]<range2){
+          offsetT=p
+          offsetV=Curve[p]
+        }
+        p=p+1
+      }
+    }
+  }
 
   if ((max-offsetV)==0) {
     crp=FALSE
