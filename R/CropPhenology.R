@@ -596,7 +596,7 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   	offsetTF=length(Curve)-DD
   }
 
-    if (lsof==0){ #if only the growing season is presented and only increasing
+  if (lsof==0){ #if only the growing season is presented and only increasing
     k=Max_T+1
     Checked= FALSE
     while (k<(length(Curve)+1)){
@@ -638,6 +638,7 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
         if (Curve[p]<range2){
           offsetT=p
           offsetV=Curve[p]
+          break
         }
         p=p+1
       }
