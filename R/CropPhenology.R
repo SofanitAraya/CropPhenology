@@ -472,7 +472,7 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   }
   ratio=Percentage/100
   min1=min (Curve[1:Max_T])
-  min2=min(Curve[Max_T:(FileLen-1)])
+  min2=min(Curve[Max_T:FileLen])
   range1=min1+(ratio*min1) #to get 10% of the min before Max
   range2=min2+(ratio*min2)#to get 10% of the min after Max
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -558,12 +558,12 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   offsetV=0
   crp=TRUE
   z=Max_T+1
-  slopof=(Curve[[Max_T+1]]-Curve[[Max_T]])
+  slopof=(Curve[Max_T+1]-Curve[Max_T])
   slopof=as.matrix(slopof)
   y=2
 
   while (z<(length(Curve))){
-    slopof[y]=(Curve[[z+1]]-Curve[[z]])
+    slopof[y]=(Curve[z+1]-Curve[z])
     z=z+1
     y=y+1
   }
@@ -574,21 +574,22 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   lenof=length(slopof)
   lastof=slopof[lenof]
 
-  i=lenof
+  i=1
   #i=len
   lsof=0
 
 
-  while(i>1){
+  while(i<lenof+1){
     if (lastof>(-0.01)){
-      print(lastof)
+      #print(last)
       if (lastof> (-0.01)){
+        #print(last)
         lsof=i
-        print(lsof)
+        break
       }
       quick=i
     }
-    i=i-1
+    i=i+1
     lastof=slopof[i]
   }
 
@@ -611,41 +612,26 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
     }
   }
 
-
-
   kof=(Max_T+lsof-1)
-
   if (lsof>0){
-
-  	# if (slopof[lsof-1]>0){
-  	# 	lsof=lsof-1
-  	# 	if (slopof[lsof-1]>0){
-  	# 		lsof=lsof-1
-  	# 		if (slopof[lsof-1]>0){
-  	# 			lsof=lsof-1
-  	# 		}
-  	# 	}
-  	# }
-
     if (Curve[kof]<range2){
-    	print(kof)
       offsetT=kof
       offsetV=Curve[kof]
     }
     if (Curve[kof]>range2){
       p=lsof
-      Enter=1
+      Enter=FALSE
       while (p<length(slopof)){
         if ((slopof[p]>(-0.01)) & (Curve[Max_T+p-1]<range2)){
           offsetT=Max_T+p-1
           offsetV=Curve[Max_T+p-1]
-          Enter=Enter+1
+          Enter=TRUE
           break
         }
         p=p+1
       }
     }
-    if (Enter==1){
+    if (Enter==FALSE){
       p=Max_T+lsof-1
       while (p<(length(Curve)+1)){
         if (Curve[p]<range2){
@@ -657,20 +643,17 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
     }
   }
 
-  # if ((max-offsetV)==0) {
-  #   crp=FALSE
-  #   print("not crop")
-  #   offsetT=length(Curve)
-  #   offsetV=Curve[[offsetT]]
-  # }
+  if ((max-offsetV)==0) {
+    crp=FALSE
+    offsetT=length(Curve)
+    offsetV=Curve[offsetT]
+  }
 
   #print (lsof)
 
   #print (offsetV)
   #print(offsetT)
   offsetTF=offsetT
-
-
 
   Offset_Value=offsetV
   Offset_Time= offsetTF
