@@ -398,7 +398,15 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
 #===============================================================================================================
 #                                     SinglePhenology Function
 #===============================================================================================================
-
+# SinglePhenology - calculates phenologic metrics for each pixel and return to the PhenoMetrics function
+#' @export
+#' @return return phenologic metrics for a single pixel
+#' @title Phenology plot per pixel
+#' @name SinglePhenology
+#' @param AnnualTS- annual time series
+#' @param Percentage - the percentage threshold for Onset and Offset
+#' @param Smoothing - moving average smoothing applied if TRUE
+#'
 SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   if(sum(is.na(AnnualTS)) > 0) {
     PVector = rep(NA,15)

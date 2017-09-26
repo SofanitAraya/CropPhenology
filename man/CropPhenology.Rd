@@ -21,7 +21,25 @@ Plotting a time series of vegetation index values across time creates a curve th
 Overview of data processing
 
 
-CropPhenology has two functions: PhenoMetrics and MultiPointsPlot.
+CropPhenology has three functions: PhenoMetrics and MultiPointsPlot.
+
+SinglePhenology:- provides phenological metrics for a single pixel. It allows to implement other preprocessing steps on the vegetation index curve, such as smoothing. The following example illustrate the use of Savitzky-Golay smoothing on the single pixed prior to the phenological extraction.
+
+> install.packages(c("signal", "devtools"))
+> lapply(c("signal", "devtools"), library, character = TRUE)
+> # install CropPhenology
+> install_github("SofanitAraya/CropPhenology")
+> # NDVI test data for location F1
+> MODIS_2015<-c(0.15, 0.1488, 0.152, 0.1526, 0.1699, 0.1634, 0.1647, 0.1693, 0.1899 ,0.2369 ,0.2594, 0.2274, 0.2382, 0.2168, 0.2033, 0.198, 0.183, 0.183, 0.1797, 0.1635, 0.1468, 0.1621, 0.1487)
+> # Savitzky-Golay smoothing filter
+> sg_MODIS2015 <- sgolayfilt(MODIS_2015)
+> ts.plot(ts(MODIS_2015), ts(sg_MODIS2015), col=1:2, lwd=2)
+> # Apply CropPheno to smoothed NDVI time series
+> SinglePhenology(sg_MODIS2015))
+> ts.plot(ts(MODIS_2015), ts(sg_MODIS2015), col=1:2, lwd=2)
+
+\figure{Figure5}
+
 PhenoMetrics:- takes the path for the time series vegetation index data and the vector file that defines the Area of Interest (AOI). It extracts fifteen phenological metrics (Figure 2) which represent the seasonal growth condition of the crop at each pixel for the season. The output is presented as a raster stack of phenological metrics or a table of phenological metrics for point AOI.  Table 1 summaises the defined metrics and their descriptions.
 
 \figure{Figure2}

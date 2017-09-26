@@ -24,11 +24,11 @@ This function extracts 15 phenologic metrics from time series vegetaion index da
 \examples{
 #EXAMPLE - 1
 
-#PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
+PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
 
 #EXAMPLE - 2
 
-# PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
+PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
 
 
 }
