@@ -11,7 +11,7 @@ SinglePhenology(AnnualTS, Percentage = 20, Smoothing = FALSE)
 
 \item{Smoothing}{- moving average smoothing applied if TRUE}
 
-\item{AnnualTS}{- annual time series}
+\item{AnnualTS-}{annual time series}
 }
 \value{
 return phenologic metrics for a single pixel
