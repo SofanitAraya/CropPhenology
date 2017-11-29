@@ -335,7 +335,7 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
 
   BefMaxT=PhenoStack$BeforeMaxT
   crs(BefMaxT)<-crs(shp)
-  brk=seq(0,12, by=0.01)
+  brk=seq(0,19, by=0.01)
   nbrk=length(brk)
   plot(BefMaxT, main="BeforeMaxT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,19,by=2), labels=seq(0,19,by=2)), zlim=c(0,19))
   writeRaster(BefMaxT, "BeforeMaxT.img", overwrite=TRUE)
@@ -349,7 +349,7 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
 
   Len=PhenoStack$LengthGS
   crs(Len)<-crs(shp)
-  brk=seq(6,17, by=0.1)
+  brk=seq(6,23, by=0.1)
   nbrk=length(brk)
   writeRaster(Len, "LengthGS.img", overwrite=TRUE)
   plot(Len, main="LengthGS", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(6,23,by=2), labels=seq(6,23,by=2)), zlim=c(6,23))
