@@ -10,9 +10,9 @@
 #' @keywords Time-series
 #' @seealso MultiPointsPlot (Path, N,Id1, Id2...IdN)
 #' @description This function extracts 15 phenologic metrics from time series vegetaion index data, as raster and Ascii files. The function takes path of the vegetation index data and the boolean Value for BolAOI (True- if there is AOI polygon, FALSE- if the parameters are calculated for the whole region).
-#' @param Path - Text value - the path where the time series images saved
-#' @param BolAOI - Logical value - if there is any area of intererst or not
-#' @param Percentage - Optional Numeric Vlaue - percentage of minimum NDVI value at which the Onset and Offset is defined. The 'Percentage' paramenter is optional; if not provided, a Default value of 10 will be taken.
+#' @param VIStack - RasterStack - a raster stack from whichthe time series extracted
+#' @param ROI - a polygon designated for region of interest. It can be spatialPolygon object or extent.
+#' @param Percentage - Optional Numeric Vlaue - percentage of minimum NDVI value at which the Onset and Offset is defined. The 'Percentage' paramenter is optional; if not provided, a Default value of 20 will be taken.
 #' @param Smoothing - Optional logical value - if the user chooses to use smoothed curve or row/unsmoothed curve. If "Smoothing' is set to TRUE, the moving avegare filter will be applied to the vegetation index curve. The default value, if not provided, is FALSE, then the unsmoothed row data be used for the analysis.
 #'
 #' @export
@@ -27,8 +27,11 @@
 #'
 #'
 
-PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
+PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 	require(xlsx)
+	require(sp)
+	require(sf)
+
 
   if(require('shapefiles')){
     print("Shapefiles is loaded correctly")
@@ -42,6 +45,31 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
         stop("could not install 'shapefiles'")
     }
   }
+	if(require('sp')){
+    print("sp is loaded correctly")
+  }
+  else {
+    print("trying to install 'sp'")
+    install.packages("sp")
+    if(require('sp')){
+        print("'sp' installed and loaded")
+    } else {
+        stop("could not install 'sp'")
+    }
+  }
+	if(require('sf')){
+    print("sf is loaded correctly")
+  }
+  else {
+    print("trying to install 'sf'")
+    install.packages("sf")
+    if(require('sf')){
+        print("'sf' installed and loaded")
+    } else {
+        stop("could not install 'sf'")
+    }
+  }
+
 	if(require('maptools')){
     print("maptools is loaded correctly")
   }
@@ -109,7 +137,7 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
 
   #===========================================================================
   if (missing(Percentage)) {
-    print ("The default value, 10%, will be applied")
+    print ("The default value, 20%, will be applied")
     Percentage=20
   }
   if (!is.numeric(Percentage)){
@@ -131,11 +159,12 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
   #===========================================================================
 
 
-  setwd(Path)
-  raDir=dir(path=Path, pattern = c(".img$|.tif$"))
-  FileLen=length(raDir)
-  allras <- list.files(pattern = c(".img$|.tif$"))
-  hugeStack = stack(allras)
+  # setwd(Path)
+  # raDir=dir(path=Path, pattern = c(".img$|.tif$"))
+  # FileLen=length(raDir)
+  # allras <- list.files(pattern = c(".img$|.tif$"))
+  # hugeStack = stack(allras)
+
   q=1
   qon=1
   qoff=1
@@ -145,54 +174,17 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
   s=1
   Enter=FALSE
 
-  if (BolAOI == TRUE){
-    AOI=dir(pattern="*.shp$")
-#    extent(AOI)=extent(hugeStack)
-    NMAOI=sub(".shp","",AOI, fixed=TRUE)
-    shp=readOGR(Path, NMAOI)
-    #shp=readShapePoly(AOI)
-    if (class(shp)=="SpatialPointsDataFrame"){
-      #points = readOGR(Path,"EP_Apsoil")
-      pTrans = spTransform(shp, crs(hugeStack))
-      pcor = coordinates(pTrans)
-      ModisCurves = extract(hugeStack,pcor[,1:2]) / 10000
-      PhenoArray = array(dim = c(nrow(ModisCurves), 15))
-
-      for (i in 1:nrow(ModisCurves)){
-        PhenoArray[i,] <- SinglePhenology(ModisCurves[i,],15, FALSE)
-      }
-      cnames = c('x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','Area_Total','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
-
-      PhenoDataframe = data.frame(cbind(pcor[,1], pcor[,2],PhenoArray))
-      PointDataframe= data.frame(cbind(pcor[,1], pcor[,2], ModisCurves))
-      colnames(PhenoDataframe) = cnames
-
-      dir.create("Metrics")
-      setwd(paste(getwd(), "Metrics", sep="/"))
-      getwd()
-
-      write.csv(PhenoDataframe,"Pheno_table.csv")
-      write.csv(PointDataframe, "AllPixels.csv")
-
-      print ("output metrics for the point data is saved at 'Metrics' folder as 'Pheno_table.csv'")
-      stop()
-    }
-
-    if (class(shp)=="SpatialPolygonsDataFrame"){
-      #temp=raDir[1]
-      #shp = readOGR(Path,"Bon")
-      tmpstack = crop(hugeStack,shp)
-      imageStack = mask(tmpstack,shp)
+  if (is.null(ROI) == FALSE){
+  	if (class(ROI)== "Extent"){
+  		tmpstack = crop(VIStack,ROI)
+  		imageStack = tmpstack
       #imgst=stack(imageStack)
       g=array(, dim=dim(imageStack))
       #g[,,]=imageStack[,,]
       r=1
-      for (r in 1:(dim(imageStack)[1])) {
+      for (r in 1:(dim(imageStack)[1])){
           g[r,,]  = imageStack[r,,]
       }
-
-
-      #imageArray = as.array(imageStack[,,])
       PhenoArray = array(dim = c((dim(g))[1],(dim(g))[2],15))
       PtArray=array(dim = c((dim(g))[1],(dim(g))[2]))
       for ( r in 1:(dim(g))[1]) {
@@ -202,40 +194,170 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
           PhenoArray[r,c,] = SinglePhenology(p1, Percentage, Smoothing)
         }
       }
-      pts=rasterToPoints(imageStack)
+      PhenoStack <- raster(PhenoArray[,,1], template = imageStack)
+      for (i in 2:15) {
+      	PhenoStack <- stack(PhenoStack,raster(PhenoArray[,,i], template = imageStack))
+      }
+      names(PhenoStack) = c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+  	}
+  	if (class(ROI)== "SpatialPolygonsDataFrame"){
+  		tmpstack = crop(VIStack,ROI)
+      imageStack = mask(tmpstack,ROI)
+      #imgst=stack(imageStack)
+      g=array(, dim=dim(imageStack))
+      #g[,,]=imageStack[,,]
+      r=1
+      for (r in 1:(dim(imageStack)[1])){
+          g[r,,]  = imageStack[r,,]
+      }
+      PhenoArray = array(dim = c((dim(g))[1],(dim(g))[2],15))
+      PtArray=array(dim = c((dim(g))[1],(dim(g))[2]))
+      for ( r in 1:(dim(g))[1]) {
+        for ( c in 1:(dim(g))[2]) {
+          t1 <- (as.vector(g[r,c,]))
+          p1=t1/10000
+          PhenoArray[r,c,] = SinglePhenology(p1, Percentage, Smoothing)
+        }
+      }
 
       PhenoStack <- raster(PhenoArray[,,1], template = imageStack)
       for (i in 2:15) {
-        PhenoStack <- stack(PhenoStack,raster(PhenoArray[,,i], template = imageStack))
+      	PhenoStack <- stack(PhenoStack,raster(PhenoArray[,,i], template = imageStack))
       }
-      names(PhenoStack) = c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+    	names(PhenoStack) = c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+
+  	}
+    if (class(ROI)== "SpatialPointsDataFrame"){
+
+    	crs(ROI)= crs(VIStack)
+			pcor = coordinates(ROI)
+      ModisCurves = extract(VIStack,pcor[,1:2]) / 10000
+      PhenoArray = array(dim = c(nrow(ModisCurves), 15))
+      for (i in 1:nrow(ModisCurves)){
+        PhenoArray[i,] <- SinglePhenology(ModisCurves[i,],15, FALSE)
+      }
+      'Onset_Value'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,1]))
+      crs(Onset_Value)=crs(VIStack)
+      'Onset_Time'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,2]))
+      crs(Onset_Time)=crs(VIStack)
+      'Offset_Value'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,3]))
+      crs(Offset_Value)=crs(VIStack)
+      'Offset_Time'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,4]))
+      crs(Offset_Time)=crs(VIStack)
+      'Max_Value'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,5]))
+      crs(Max_Value)=crs(VIStack)
+      'Max_Time'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,6]))
+      crs(Max_Time)=crs(VIStack)
+      'TINDVI'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,7]))
+      crs(TINDVI)=crs(VIStack)
+      'Area_Before'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,8]))
+      crs(Area_Before)=crs(VIStack)
+      'Area_After'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,9]))
+      crs(Area_After)=crs(VIStack)
+      'Asymmetry'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,10]))
+      crs(Asymmetry)=crs(VIStack)
+      'GreenUpSlope'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,11]))
+      crs(GreenUpSlope)=crs(VIStack)
+      'BrownDownSlope'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,12]))
+      crs(BrownDownSlope)=crs(VIStack)
+      'LengthGS'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,13]))
+      crs(LengthGS)=crs(VIStack)
+      'BeforeMaxT'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,14]))
+      crs(BeforeMaxT)=crs(VIStack)
+      'AfterMaxT'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,15]))
+      crs(AfterMaxT)=crs(ROI)
+      #PhenoDataFrame=c(Onset_Value,Onset_Time,Offset_Value,Offset_Time,Max_Value,Max_Time,TINDVI,Area_Before,Area_After,Asymmetry,GreenUpSlope,BrownDownSlope,LengthGS,BeforeMaxT,AfterMaxT)
+      #names(PhenoStack) = c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+
+
+
+      cnames = c('x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','Area_Total','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+
+
+      PhenoDataframe = data.frame(cbind(pcor[,1], pcor[,2],PhenoArray))
+      PointDataframe= data.frame(cbind(pcor[,1], pcor[,2], ModisCurves))
+      colnames(PhenoDataframe) = cnames
+
+      #dir.create("Metrics")
+      #setwd(paste(getwd(), "Metrics", sep="/"))
+      #getwd()
+      #write.csv(PhenoDataframe,"Pheno_table.csv")
+      #write.csv(PointDataframe, "AllPixels.csv")
+
+      #print ("output metrics for the point data is saved at 'Metrics' folder as 'Pheno_table.csv'")
+      #stop()
     }
+    if (class(ROI)== "SpatialPoints"){
 
+    	crs(ROI)= crs(VIStack)
+			pcor = coordinates(ROI)
+      ModisCurves = extract(VIStack,pcor[,1:2]) / 10000
+      PhenoArray = array(dim = c(nrow(ModisCurves), 15))
+      for (i in 1:nrow(ModisCurves)){
+        PhenoArray[i,] <- SinglePhenology(ModisCurves[i,],15, FALSE)
+      }
+      'Onset_Value'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,1]))
+      crs(Onset_Value)=crs(VIStack)
+      'Onset_Time'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,2]))
+      crs(Onset_Time)=crs(VIStack)
+      'Offset_Value'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,3]))
+      crs(Offset_Value)=crs(VIStack)
+      'Offset_Time'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,4]))
+      crs(Offset_Time)=crs(VIStack)
+      'Max_Value'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,5]))
+      crs(Max_Value)=crs(VIStack)
+      'Max_Time'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,6]))
+      crs(Max_Time)=crs(VIStack)
+      'TINDVI'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,7]))
+      crs(TINDVI)=crs(VIStack)
+      'Area_Before'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,8]))
+      crs(Area_Before)=crs(VIStack)
+      'Area_After'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,9]))
+      crs(Area_After)=crs(VIStack)
+      'Asymmetry'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,10]))
+      crs(Asymmetry)=crs(VIStack)
+      'GreenUpSlope'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,11]))
+      crs(GreenUpSlope)=crs(VIStack)
+      'BrownDownSlope'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,12]))
+      crs(BrownDownSlope)=crs(VIStack)
+      'LengthGS'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,13]))
+      crs(LengthGS)=crs(VIStack)
+      'BeforeMaxT'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,14]))
+      crs(BeforeMaxT)=crs(VIStack)
+      'AfterMaxT'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,15]))
+      crs(AfterMaxT)=crs(ROI)
+      #PhenoDataFrame=c(Onset_Value,Onset_Time,Offset_Value,Offset_Time,Max_Value,Max_Time,TINDVI,Area_Before,Area_After,Asymmetry,GreenUpSlope,BrownDownSlope,LengthGS,BeforeMaxT,AfterMaxT)
+      #names(PhenoStack) = c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+
+
+
+      cnames = c('x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','Area_Total','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+
+
+      PhenoDataframe = data.frame(cbind(pcor[,1], pcor[,2],PhenoArray))
+      PointDataframe= data.frame(cbind(pcor[,1], pcor[,2], ModisCurves))
+      colnames(PhenoDataframe) = cnames
+
+      #dir.create("Metrics")
+      #setwd(paste(getwd(), "Metrics", sep="/"))
+      #getwd()
+      #write.csv(PhenoDataframe,"Pheno_table.csv")
+      #write.csv(PointDataframe, "AllPixels.csv")
+
+      #print ("output metrics for the point data is saved at 'Metrics' folder as 'Pheno_table.csv'")
+      #stop()
+    }
   }
 
-  dir.create("Metrics")
-  setwd(paste(getwd(), "Metrics", sep="/"))
-
-  print(getwd())
-  if (class(shp)=="SpatialPolygonsDataFrame"){
-  	crs(PhenoStack)=crs(hugeStack)
-  	writeRaster(PhenoStack,"PhenoStack.img")
-  	ppt=pts
-  	d=(dim(g))[3]+2
-  	pts[,3:d]=pts[,3:d]/10000
-  	write.csv(pts, "AllPixels.csv")
-  }
-
-
-  if (BolAOI == FALSE){
-    ra=raster(raDir[1])
-    Points=rasterToPoints(ra)
-    shp=rasterToPolygons((ra*0), dissolve=TRUE)
-    temp=raDir[1]
-    #    shp = readOGR(Path,"Bon")
-    tmpstack = crop(hugeStack,shp)
-    imageStack = mask(tmpstack,shp)
-    imageArray <- as.array(imageStack)
+  if (is.null(ROI) == TRUE){
+    # ra=raster(raDir[1])
+    # Points=rasterToPoints(ra)
+    # shp=rasterToPolygons((ra*0), dissolve=TRUE)
+    # temp=raDir[1]
+    # #    shp = readOGR(Path,"Bon")
+    # tmpstack = crop(hugeStack,shp)
+    #imageStack = mask(tmpstack,shp)
+    imageArray <- as.array(VIStack)
     PhenoArray = array(dim = c(dim(imageArray)[1],dim(imageArray)[2],15))
 
     for ( r in 1:dim(imageArray)[1]) {
@@ -251,21 +373,21 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
 
     names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
 
-    dir.create("Metrics")
-    setwd(paste(getwd(), "Metrics", sep="/"))
-
-    print(getwd())
-    writeRaster(PhenoStack,"PhenoStack.img")
+    # dir.create("Metrics")
+    # setwd(paste(getwd(), "Metrics", sep="/"))
+    #
+    # print(getwd())
+    # writeRaster(PhenoStack,"PhenoStack.img")
   }
 
 
-  coords = rasterToPoints(imageStack)
-  # Number of pixels:
-  nrow(coords)
-  # MODIS time series of pixel 1
-  p1 <- coords[1,3:ncol(coords)]
-  for (i in 1:nrow(coords)){
-    plot(coords[i,3:ncol(coords)])
+  # coords = rasterToPoints(imageStack)
+  # # Number of pixels:
+  # nrow(coords)
+  # # MODIS time series of pixel 1
+  # p1 <- coords[1,3:ncol(coords)]
+  # for (i in 1:nrow(coords)){
+  #   plot(coords[i,3:ncol(coords)])
   }
   #===========================================
 
@@ -390,7 +512,7 @@ PhenoMetrics<- function (Path, BolAOI, Percentage, Smoothing){
   return("*****Output file saved under <Metrics> folder under directory*****")
 
   ##########################====================================##########################
-}
+
 #===============================================================================================================
 
 
@@ -415,7 +537,6 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   #========================================
   sq=2
   ll=length(AnnualTS)
-  # SOFI - need to check FileLen and Enter initial values
   Enter = FALSE
   FileLen = ll
   SmthTS = vector(length=length(AnnualTS))
@@ -753,145 +874,182 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
 
 #' @export
 #' @return Multiple time series curves together at the plot panel
-#' @param path - the path whee AllPixel.txt saved
-#' @param N - number of intersted points
-#' @param Id1 -  ID number for point 1
-#' @param Id2 -  Id number for point 2
-#' @param Id3 -  ID number for point 3
-#' @param Id4 -  ID number for point 4
-#' @param Id5 -  ID number for point 5
 #' @title Time series curves for Multiple points in the Region of Interest
 #' @description MultiPointsPlot function takes the ID for the pixels within the region of interst and returns, the timeseries curves from these points, ploted together. The Id numbers can be obtained from the txt file (AllPixels.txt) outputs.
 #' @keywords Curve from multiple points
 #' @keywords time-series curves
 #' @details This function allows plotting time series curves from multiple points together in a single plot which helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
-#' @details The maximum number of pixeles allowed plotting togther are 5 points.
+#'
 #'
 #'
 #'
 #' @seealso PhenoMetrics()
 #'
-MultiPointsPlot<- function (path, N,Id1,Id2,Id3,Id4,Id5){
-  #AP=read.table("Allpixels.txt")
-  setwd(path)
-  AP=read.table("AllPixels.csv", header=TRUE, sep=",", strip.white = TRUE)
-  APP=as.matrix(AP[Id1,])
-  #print (APP)
+MultiPointsPlot<- function (VIStack){
+
+  # #AP=read.table("Allpixels.txt")
+  # setwd(path)
+  # AP=read 4z.table("AllPixels.csv", header=TRUE, sep=",", strip.white = TRUE)
+  # APP=as.matrix(AP[Id1,])
+  # #print (APP)
   par(mfrow=c(1,1))
-
-  LTS=ncol(AP)
-  LDT=nrow(AP)
-  if (N>5){
-    warning ('The maximum No of pixel to plot is 5')
-
-
-    if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) || (is.numeric(Id4)==FALSE) || (is.numeric(Id5)==FALSE) ){
-      stop ('ID should be numeric')
-    }
-
-
-    if (missing (Id1) | missing(Id2) | missing (Id3) | missing (Id4) | missing (Id5)){
-      stop('Id missed')
-    }
-    ts.plot((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])), (ts(as.matrix(AP[Id5,])[4:LTS])),  ylim=c(0,1), col=1:5)
-    axis(2, at=seq(0,1,by=0.1))
-
+  dis=VIStack[[1]]
+  plot(dis)
+  PList=click(dis, n=5, cell=TRUE, xy=TRUE, show=FALSE)
+  N=length(PList)
+  if (is.null(PList)==FALSE ) {
+  	N=length(PList)
+  	if (N > 5) {
+  		warning ('The maximum No of pixel to plot is 5')
+  	}
+  	i=1
+  	cur=ts(1:nlayers(VIStack))
+  	for (i in 1:N){
+  		print (i)
+  		id1=PList$cell[i]
+  		cur[1]=extract(VIStack[[1]], id1)
+  		j=2
+  		for (j in 2:nlayers(VIStack)){
+  			cur[j]=extract(VIStack[[j]], id1)
+  			#print (cur[j])
+  		}
+  		print (cur)
+  		print (N)
+  		assign(paste0("Curve",i), cur)
+  	}
   }
 
-
-  if (N==1){
-    warning('only one pixel ploted')
-
-
-    if ((is.numeric(Id1)==FALSE) ){
-      stop ('ID should be numeric')
-    }
-
-
-
-    if ((Id1>LDT)){
-      stop ('Id out of range')
-    }
-
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), ylim=c(0,1))
-    axis(2, at=seq(0,1,by=0.1))
-  }
-
+	if (N==1){
+		ts.plot(ts(Curve1), col=1)
+	}
   if (N==2){
-    if (missing (Id1) || missing(Id2)){
-      stop('Id missed')
-    }
-
-
-    if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) ){
-      stop ('ID should be numeric')
-    }
-
-
-    if ((Id1>LDT) || (Id2>LDT)){
-      stop ('Id out of range')
-    }
-
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), ylim=c(0,1), col=1:2)
-    axis(2,  at=seq(0,1,by=0.1))
+  	ts.plot(Curve1, Curve2, col=c(1:2))
   }
   if (N==3){
-    if ((missing (Id1)) || (missing(Id2)) || (missing (Id3))){
-      stop ("Id missed")
-    }
-
-
-    if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) ){
-      stop ('ID should be numeric')
-    }
-
-
-    if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT)){
-      stop ('Id out of range')
-    }
-
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), ylim=c(0,1), col=1:3)
-    axis(2,  at=seq(0,1,by=0.1))
+  	ts.plot(Curve1, Curve2, Curve3, col=c(1:3))
   }
-
   if (N==4){
-    if (missing (Id1) || missing(Id2) || missing (Id3) || missing (Id4)){
-      stop('Id missed')
-    }
-
-
-    if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) || (is.numeric(Id4)==FALSE) ){
-      stop ('ID should be numeric')
-    }
-
-
-    if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT) || (Id4>LDT)){
-      stop ('Id out of range')
-    }
-
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])),  ylim=c(0,1), col=1:4)
-    axis(2, at=seq(0,1,by=0.1))
+  	ts.plot(Curve1, Curve2, Curve3, Curve4, col=c(1:4))
   }
   if (N==5){
-    if (missing (Id1) || missing(Id2) || missing (Id3) || missing (Id4) || missing (Id5)){
-      stop('Id missed')
-    }
-
-
-    if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) || (is.numeric(Id4)==FALSE) || (is.numeric(Id5)==FALSE) ){
-      stop ('ID should be numeric')
-    }
-
-
-    if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT) || (Id4>LDT) || (Id5>LDT) ){
-      stop ('Id out of range')
-    }
-
-    ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])), (ts(as.matrix(AP[Id5,])[4:LTS])), ylim=c(0,1),  col=1:5)
-    axis(2, at=seq(0,1,by=0.1))
+  	ts.plot(Curve1, Curve2, Curve3, Curve4, Curve5, col=c(1:5))
   }
-  return ("..........Curves ploted............................")
 }
+
+#
+# 	LTS=ncol(AP)
+#   LDT=nrow(AP)
+#   if (N>5){
+#     warning ('The maximum No of pixel to plot is 5')
+#
+#
+#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) || (is.numeric(Id4)==FALSE) || (is.numeric(Id5)==FALSE) ){
+#       stop ('ID should be numeric')
+#     }
+#-
+#
+#     if (missing (Id1) | missing(Id2) | missing (Id3) | missing (Id4) | missing (Id5)){
+#       stop('Id missed')
+#     }
+#     ts.plot((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])), (ts(as.matrix(AP[Id5,])[4:LTS])),  ylim=c(0,1), col=1:5)
+#     axis(2, at=seq(0,1,by=0.1))
+#
+#   }
+#
+#
+#   if (N==1){
+#     warning('only one pixel ploted')
+#
+#
+#     if ((is.numeric(Id1)==FALSE) ){
+#       stop ('ID should be numeric')
+#     }
+#
+#
+#
+#     if ((Id1>LDT)){
+#       stop ('Id out of range')
+#     }
+#
+#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), ylim=c(0,1))
+#     axis(2, at=seq(0,1,by=0.1))
+#   }
+#
+#   if (N==2){
+#     if (missing (Id1) || missing(Id2)){
+#       stop('Id missed')
+#     }
+#
+#
+#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) ){
+#       stop ('ID should be numeric')
+#     }
+#
+#
+#     if ((Id1>LDT) || (Id2>LDT)){
+#       stop ('Id out of range')
+#     }
+#
+#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), ylim=c(0,1), col=1:2)
+#     axis(2,  at=seq(0,1,by=0.1))
+#   }
+#   if (N==3){
+#     if ((missing (Id1)) || (missing(Id2)) || (missing (Id3))){
+#       stop ("Id missed")
+#     }
+#
+#
+#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) ){
+#       stop ('ID should be numeric')
+#     }
+#
+#
+#     if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT)){
+#       stop ('Id out of range')
+#     }
+#
+#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), ylim=c(0,1), col=1:3)
+#     axis(2,  at=seq(0,1,by=0.1))
+#   }
+#
+#   if (N==4){
+#     if (missing (Id1) || missing(Id2) || missing (Id3) || missing (Id4)){
+#       stop('Id missed')
+#     }
+#
+#
+#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) || (is.numeric(Id4)==FALSE) ){
+#       stop ('ID should be numeric')
+#     }
+#
+#
+#     if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT) || (Id4>LDT)){
+#       stop ('Id out of range')
+#     }
+#
+#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])),  ylim=c(0,1), col=1:4)
+#     axis(2, at=seq(0,1,by=0.1))
+#   }
+#   if (N==5){
+#     if (missing (Id1) || missing(Id2) || missing (Id3) || missing (Id4) || missing (Id5)){
+#       stop('Id missed')
+#     }
+#
+#
+#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) || (is.numeric(Id4)==FALSE) || (is.numeric(Id5)==FALSE) ){
+#       stop ('ID should be numeric')
+#     }
+#
+#
+#     if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT) || (Id4>LDT) || (Id5>LDT) ){
+#       stop ('Id out of range')
+#     }
+#
+#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])), (ts(as.matrix(AP[Id5,])[4:LTS])), ylim=c(0,1),  col=1:5)
+#     axis(2, at=seq(0,1,by=0.1))
+#   }
+#   return ("..........Curves ploted............................")
+# }
 
 #======================================================================================================
 
