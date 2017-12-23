@@ -7,9 +7,9 @@
 SinglePhenology(AnnualTS, Percentage = 20, Smoothing = FALSE)
 }
 \arguments{
-\item{Percentage}{- the percentage threshold for Onset and Offset}
+\item{Percentage}{- optional numeric value- the percentage threshold for Onset and Offset}
 
-\item{Smoothing}{- moving average smoothing applied if TRUE}
+\item{Smoothing}{- optional boolean value- if the moving average smoothing is required or not}
 
 \item{AnnualTS-}{annual time series}
 }

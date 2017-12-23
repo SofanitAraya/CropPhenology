@@ -2,33 +2,22 @@
 % Please edit documentation in R/CropPhenology.R
 \name{MultiPointsPlot}
 \alias{MultiPointsPlot}
-\title{Time series curves for Multiple points in the Region of Interest}
+\title{Time series curves for Multiple selected points}
 \usage{
-MultiPointsPlot(path, N, Id1, Id2, Id3, Id4, Id5)
+MultiPointsPlot(VIStack)
 }
 \arguments{
-\item{path}{- the path whee AllPixel.txt saved}
+\item{VIStack}{- RasterStack object - Stack of time series of vegetation index images from which the points are selected for multiple dynamics curve plot}
 
-\item{N}{- number of intersted points}
-
-\item{Id1}{-  ID number for point 1}
-
-\item{Id2}{-  Id number for point 2}
-
-\item{Id3}{-  ID number for point 3}
-
-\item{Id4}{-  ID number for point 4}
-
-\item{Id5}{-  ID number for point 5}
 }
 \value{
 Multiple time series curves together at the plot panel
 }
 \description{
-MultiPointsPlot function takes the ID for the pixels within the region of interst and returns, the timeseries curves from these points, ploted together. The Id numbers can be obtained from the txt file (AllPixels.txt) outputs.
+MultiPointsPlot function plots vegetation index dynamics from user defined multiple points.
 }
 \details{
-This function allows plotting time series curves from multiple points together in a single plot which helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
+This function allows the user to select points from a raster image at which the time series vegetation index dynamics ploted accross time. Such multiple plots help understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
 
 The maximum number of pixeles allowed plotting togther are 5 points.
 }
