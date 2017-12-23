@@ -2,24 +2,21 @@
 % Please edit documentation in R/CropPhenology.R
 \name{MultiPointsPlot}
 \alias{MultiPointsPlot}
-\title{Time series curves for Multiple selected points}
+\title{Time series curves for Multiple points in the Region of Interest}
 \usage{
 MultiPointsPlot(VIStack)
 }
 \arguments{
-\item{VIStack}{- RasterStack object - Stack of time series of vegetation index images from which the points are selected for multiple dynamics curve plot}
-
+\item{VIStack}{- RasterStack of time series vegetation index images}
 }
 \value{
 Multiple time series curves together at the plot panel
 }
 \description{
-MultiPointsPlot function plots vegetation index dynamics from user defined multiple points.
+MultiPointsPlot function takes the ID for the pixels within the region of interst and returns, the timeseries curves from these points, ploted together. The Id numbers can be obtained from the txt file (AllPixels.txt) outputs.
 }
 \details{
-This function allows the user to select points from a raster image at which the time series vegetation index dynamics ploted accross time. Such multiple plots help understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
-
-The maximum number of pixeles allowed plotting togther are 5 points.
+This function allows plotting time series curves from multiple points together in a single plot which helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
 }
 \seealso{
 PhenoMetrics()

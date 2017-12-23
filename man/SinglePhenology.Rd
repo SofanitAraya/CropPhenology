@@ -7,12 +7,15 @@
 SinglePhenology(AnnualTS, Percentage = 20, Smoothing = FALSE)
 }
 \arguments{
-\item{Percentage}{- optional numeric value- the percentage threshold for Onset and Offset}
+\item{AnnualTS}{- annual time series}
 
-\item{Smoothing}{- optional boolean value- if the moving average smoothing is required or not}
+\item{Percentage}{- the percentage threshold for Onset and Offset}
 
-\item{AnnualTS-}{annual time series}
+\item{Smoothing}{- moving average smoothing applied if TRUE}
 }
 \value{
 return phenologic metrics for a single pixel
+}
+\description{
+SinglePhenology is a premitive function which takes a time series vegetation index data for a single pixel for a single season
 }

@@ -3,7 +3,7 @@
 #======================================================================================================================================
 #' Phenologic metrics from time series vegetation index data
 #'
-#' @return  PhenoStack.img - a raster stack of 15 images in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry
+#' @return  PhenoStack - a raster stack of 15 images in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry
 #' @keywords Phenology
 #' @keywords remote sensing
 #' @keywords satellite image
@@ -31,6 +31,8 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 	require(xlsx)
 	require(sp)
 	require(sf)
+	require(roxygen2)
+	require(raster)
 
 
   if(require('shapefiles')){
@@ -388,8 +390,6 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
   # p1 <- coords[1,3:ncol(coords)]
   # for (i in 1:nrow(coords)){
   #   plot(coords[i,3:ncol(coords)])
-  }
-  #===========================================
 
 
   #===================================================================================================
@@ -510,6 +510,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
   ##########################====================================##########################
 
   return("*****Output file saved under <Metrics> folder under directory*****")
+  }
 
   ##########################====================================##########################
 
@@ -525,9 +526,10 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 #' @return return phenologic metrics for a single pixel
 #' @title Phenology plot per pixel
 #' @name SinglePhenology
-#' @param AnnualTS- annual time series
+#' @param AnnualTS - annual time series
 #' @param Percentage - the percentage threshold for Onset and Offset
 #' @param Smoothing - moving average smoothing applied if TRUE
+#' @description SinglePhenology is a premitive function which takes a time series vegetation index data for a single pixel for a single season
 #'
 SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
   if(sum(is.na(AnnualTS)) > 0) {
@@ -879,7 +881,7 @@ SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
 #' @keywords Curve from multiple points
 #' @keywords time-series curves
 #' @details This function allows plotting time series curves from multiple points together in a single plot which helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
-#'
+#' @param VIStack - RasterStack of time series vegetation index images
 #'
 #'
 #'

@@ -4,22 +4,22 @@
 \alias{PhenoMetrics}
 \title{Phenologic metrics from time series vegetation index data}
 \usage{
-PhenoMetrics(VIStack, ROI, Percentage, Smoothing)
+PhenoMetrics(VIStack, ROI = NULL, Percentage = NULL, Smoothing = NULL)
 }
 \arguments{
-\item{VIStack}{- RasterStack or RasterBrick object - stack of time series vegetation index images}
+\item{VIStack}{- RasterStack - a raster stack from whichthe time series extracted}
 
-\item{ROI}{-SpatialPolygon, SpatialPolygonDataFrame, SpatialPoints or SpatialPointsDataFrame object- - to define the region of interest. The ROI parameter is optional; if not provided the whole region will be considered for phenologic calculation}
+\item{ROI}{- a polygon designated for region of interest. It can be spatialPolygon object or extent.}
 
 \item{Percentage}{- Optional Numeric Vlaue - percentage of minimum NDVI value at which the Onset and Offset is defined. The 'Percentage' paramenter is optional; if not provided, a Default value of 20 will be taken.}
 
-\item{Smoothing}{- Optional logical value - if the user chooses to use smoothed curve or row/unsmoothed curve. If "Smoothing' is set to TRUE, the moving average filter, with forward window size  of 2, will be applied to the vegetation index curve. The default value, if not provided, is FALSE, then the unsmoothed row data be used for the analysis.}
+\item{Smoothing}{- Optional logical value - if the user chooses to use smoothed curve or row/unsmoothed curve. If "Smoothing' is set to TRUE, the moving avegare filter will be applied to the vegetation index curve. The default value, if not provided, is FALSE, then the unsmoothed row data be used for the analysis.}
 }
 \value{
-PhenoStack.img - a raster stack of 15 images in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry
+PhenoStack - a raster stack of 15 images in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry
 }
 \description{
-This function extracts 15 phenologic metrics from time series vegetaion index data, and provide as a RasterStack. The function takes RasterStack of vegetation index images with ooptional ROI, Percentage and Smoothing parametrs and provides a RasterStack of phenological metrics.
+This function extracts 15 phenologic metrics from time series vegetaion index data, as raster and Ascii files. The function takes path of the vegetation index data and the boolean Value for BolAOI (True- if there is AOI polygon, FALSE- if the parameters are calculated for the whole region).
 }
 \examples{
 #EXAMPLE - 1
@@ -33,12 +33,11 @@ PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
 
 }
 \seealso{
-MultiPointsPlot (VIStack)
+MultiPointsPlot (Path, N,Id1, Id2...IdN)
 }
 \keyword{Phenology}
 \keyword{Time-series}
 \keyword{image}
-\keyword{remote sensing}
+\keyword{remote}
 \keyword{satellite}
-\keyword{Crop}
-\keyword{Growth stages}
+\keyword{sensing}
