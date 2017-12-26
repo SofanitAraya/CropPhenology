@@ -200,7 +200,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
       for (i in 2:15) {
       	PhenoStack <- stack(PhenoStack,raster(PhenoArray[,,i], template = imageStack))
       }
-      names(PhenoStack) = c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+      names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
   	}
   	if (class(ROI)== "SpatialPolygonsDataFrame"){
   		tmpstack = crop(VIStack,ROI)
@@ -226,17 +226,17 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
       for (i in 2:15) {
       	PhenoStack <- stack(PhenoStack,raster(PhenoArray[,,i], template = imageStack))
       }
-    	names(PhenoStack) = c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+    	names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
 
   	}
     if (class(ROI)== "SpatialPointsDataFrame"){
-
     	crs(ROI)= crs(VIStack)
 			pcor = coordinates(ROI)
       ModisCurves = extract(VIStack,pcor[,1:2]) / 10000
+      ModisCurves[is.na(ModisCurves)] <- 0
       PhenoArray = array(dim = c(nrow(ModisCurves), 15))
       for (i in 1:nrow(ModisCurves)){
-        PhenoArray[i,] <- SinglePhenology(ModisCurves[i,],15, FALSE)
+        PhenoArray[i,] <- SinglePhenology(ModisCurves[i,],Percentage, FALSE)
       }
       'Onset_Value'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,1]))
       crs(Onset_Value)=crs(VIStack)
@@ -273,12 +273,11 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 
 
 
-      cnames = c('x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','Area_Total','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
-
-
+      cnames = c('x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
       PhenoDataframe = data.frame(cbind(pcor[,1], pcor[,2],PhenoArray))
       PointDataframe= data.frame(cbind(pcor[,1], pcor[,2], ModisCurves))
       colnames(PhenoDataframe) = cnames
+      return(PhenoDataframe)
 
       #dir.create("Metrics")
       #setwd(paste(getwd(), "Metrics", sep="/"))
@@ -294,9 +293,10 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
     	crs(ROI)= crs(VIStack)
 			pcor = coordinates(ROI)
       ModisCurves = extract(VIStack,pcor[,1:2]) / 10000
+      ModisCurves[is.na(ModisCurves)] <- 0
       PhenoArray = array(dim = c(nrow(ModisCurves), 15))
       for (i in 1:nrow(ModisCurves)){
-        PhenoArray[i,] <- SinglePhenology(ModisCurves[i,],15, FALSE)
+        PhenoArray[i,] <- SinglePhenology(ModisCurves[i,],Percentage, FALSE)
       }
       'Onset_Value'<- SpatialPoints(data.frame(cbind(pcor[,1], pcor[,2]),PhenoArray[,1]))
       crs(Onset_Value)=crs(VIStack)
@@ -333,12 +333,13 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 
 
 
-      cnames = c('x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','Area_Total','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+      cnames = c('x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
 
 
       PhenoDataframe = data.frame(cbind(pcor[,1], pcor[,2],PhenoArray))
       PointDataframe= data.frame(cbind(pcor[,1], pcor[,2], ModisCurves))
       colnames(PhenoDataframe) = cnames
+      return(PhenoDataframe)
 
       #dir.create("Metrics")
       #setwd(paste(getwd(), "Metrics", sep="/"))
@@ -373,7 +374,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
       PhenoStack <- stack(PhenoStack,raster(PhenoArray[,,i], template = imageStack))
     }
 
-    names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+    names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
 
     # dir.create("Metrics")
     # setwd(paste(getwd(), "Metrics", sep="/"))
@@ -508,8 +509,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 
 
   ##########################====================================##########################
-
-  return("*****Output file saved under <Metrics> folder under directory*****")
+	return(PhenoStack)
   }
 
   ##########################====================================##########################
@@ -531,7 +531,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 #' @param Smoothing - moving average smoothing applied if TRUE
 #' @description SinglePhenology is a premitive function which takes a time series vegetation index data for a single pixel for a single season
 #'
-SinglePhenology <- function(AnnualTS, Percentage = 20, Smoothing = FALSE) {
+SinglePhenology <- function (AnnualTS, Percentage, Smoothing = FALSE) {
   if(sum(is.na(AnnualTS)) > 0) {
     PVector = rep(NA,15)
     return(PVector)
