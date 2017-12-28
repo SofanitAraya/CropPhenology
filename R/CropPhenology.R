@@ -18,13 +18,11 @@
 #' @export
 #' @examples
 #' #EXAMPLE - 1
+#' readOGR(dsn=path.expand("~/R/funwithR/data/ne_110m_land"), layer="ne_110m_land")
+#' ExampleROI=readOGR(system.file("extdata","ROI.shp", package="CropPhenology"))
+#' ExampleStack=stack(system.file("extdata/ExampleStack", package="CropPhenology"))
 #'
-#' PhenoMetrics(system.file("extdata/data1", package="CropPhenology"), FALSE, 15, TRUE)
-#'
-#' #EXAMPLE - 2
-#'
-#' PhenoMetrics(system.file("extdata/data2", package="CropPhenology"), TRUE)
-#'
+#' PhenoMetrics(ExampleStack,ExampleROI )
 #'
 
 PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
@@ -132,10 +130,6 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
         stop("could not install 'raster'")
     }
   }
-
-  shp=0
-  NMAOI=0
-  AOI=0
 
   #===========================================================================
   if (missing(Percentage)) {
@@ -340,26 +334,11 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
       PointDataframe= data.frame(cbind(pcor[,1], pcor[,2], ModisCurves))
       colnames(PhenoDataframe) = cnames
       return(PhenoDataframe)
-
-      #dir.create("Metrics")
-      #setwd(paste(getwd(), "Metrics", sep="/"))
-      #getwd()
-      #write.csv(PhenoDataframe,"Pheno_table.csv")
-      #write.csv(PointDataframe, "AllPixels.csv")
-
-      #print ("output metrics for the point data is saved at 'Metrics' folder as 'Pheno_table.csv'")
-      #stop()
     }
   }
 
   if (is.null(ROI) == TRUE){
-    # ra=raster(raDir[1])
-    # Points=rasterToPoints(ra)
-    # shp=rasterToPolygons((ra*0), dissolve=TRUE)
-    # temp=raDir[1]
-    # #    shp = readOGR(Path,"Bon")
-    # tmpstack = crop(hugeStack,shp)
-    #imageStack = mask(tmpstack,shp)
+
     imageArray <- as.array(VIStack)
     PhenoArray = array(dim = c(dim(imageArray)[1],dim(imageArray)[2],15))
 
@@ -376,144 +355,104 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 
     names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
 
-    # dir.create("Metrics")
-    # setwd(paste(getwd(), "Metrics", sep="/"))
-    #
-    # print(getwd())
-    # writeRaster(PhenoStack,"PhenoStack.img")
   }
-
-
-  # coords = rasterToPoints(imageStack)
-  # # Number of pixels:
-  # nrow(coords)
-  # # MODIS time series of pixel 1
-  # p1 <- coords[1,3:ncol(coords)]
-  # for (i in 1:nrow(coords)){
-  #   plot(coords[i,3:ncol(coords)])
 
 
   #===================================================================================================
 
   par(mfrow=c(2,2))
   OT=PhenoStack$Onset_Time
-  crs(OT)<-crs(shp)
+  crs(OT)<-crs(ROI)
   brk=seq(2,16, by=0.01)
   nbrk=length(brk)
   plot(OT, main="OnsetT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(2,16,by=2), labels=seq(2,16,by=2)), zlim=c(2,16))
-  writeRaster(OT, "OnsetT.img", overwrite=TRUE)
 
   OV=PhenoStack$Onset_Value
   brk=seq(0.1,0.6, by=0.001)
   nbrk=length(brk)
-  crs(OV)<-crs(shp)
+  crs(OV)<-crs(ROI)
   plot(OV, main="OnsetV", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0.1,0.6,by=0.2), labels=seq(0.1,0.6,by=0.2)), zlim=c(0.1,0.6))
-  writeRaster(OV, "OnsetV.img", overwrite=TRUE)
 
   MT=PhenoStack$Max_Time
-  crs(MT)<-crs(shp)
+  crs(MT)<-crs(ROI)
   brk=seq(8,19, by=1)
   nbrk=length(brk)
   lblbrk=brk
   plot(MT, main="MaxT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(8,19,by=2), labels=seq(8,19,by=2)),zlim=c(8,19))
-  writeRaster(MT, "MaxT.img", overwrite=TRUE)
-
 
   MV=PhenoStack$Max_Value
-  crs(MV)<-crs(shp)
+  crs(MV)<-crs(ROI)
   brk=seq(0.2,1, by=0.1)
   nbrk=length(brk)
   plot(MV, main="MaxV", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0.2,1,by=0.2), labels=seq(0.2,1,by=0.2)), zlim=c(0.2,1))
-  writeRaster(MV, "MaxV.img", overwrite=TRUE)
 
   OFT=PhenoStack$Offset_Time
-  crs(OFT)<-crs(shp)
+  crs(OFT)<-crs(ROI)
   brk=seq(16,23, by=0.01)
   nbrk=length(brk)
   plot(OFT, main="OffsetT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(16,23,by=2), labels=seq(16,23,by=2)), zlim=c(16,23))
-  writeRaster(OFT, "OffsetT.img", overwrite=TRUE)
 
   OFV=PhenoStack$Offset_Value
-  crs(OFV)<-crs(shp)
+  crs(OFV)<-crs(ROI)
   brk=seq(0,0.4, by=0.001)
   nbrk=length(brk)
   plot(OFV, main="OffsetV", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,0.4,by=0.1), labels=seq(0,0.4,by=0.1)), zlim=c(0,0.4))
-  writeRaster(OFV, "OffsetV.img", overwrite=TRUE)
-
-  c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','Area_Before','Area_After','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
 
   GUS=PhenoStack$GreenUpSlope
-  crs(GUS)<-crs(shp)
+  crs(GUS)<-crs(ROI)
   brk=seq(0,0.25, by=0.00001)
   nbrk=length(brk)
   plot(GUS, main="GreenUpSlope", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,0.25,by=0.1), labels=seq(0,0.25,by=0.1)),zlim=c(0,0.25))
-  writeRaster(GUS, "GreenUpSlope.img", overwrite=TRUE)
 
   BDS=PhenoStack$BrownDownSlope
-  crs(BDS)<-crs(shp)
+  crs(BDS)<-crs(ROI)
   brk=seq(0,0.25, by=0.00001)
   nbrk=length(brk)
   plot(BDS, main="BrownDownSlope", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,0.25,by=0.1), labels=seq(0,0.25,by=0.1)),zlim=c(0,0.25))
-  writeRaster(BDS, "BrownDownSlope.img", overwrite=TRUE)
 
   BefMaxT=PhenoStack$BeforeMaxT
-  crs(BefMaxT)<-crs(shp)
+  crs(BefMaxT)<-crs(ROI)
   brk=seq(0,19, by=0.01)
   nbrk=length(brk)
   plot(BefMaxT, main="BeforeMaxT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,19,by=2), labels=seq(0,19,by=2)), zlim=c(0,19))
-  writeRaster(BefMaxT, "BeforeMaxT.img", overwrite=TRUE)
 
   AftMaxT=PhenoStack$AfterMaxT
-  crs(AftMaxT)<-crs(shp)
+  crs(AftMaxT)<-crs(ROI)
   brk=seq(0,12, by=0.01)
   nbrk=length(brk)
   plot(AftMaxT, main="AfterMaxT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,12,by=2), labels=seq(0,12,by=2)), zlim=c(0,12))
-  writeRaster(AftMaxT, "AfterMaxT.img", overwrite=TRUE)
 
   Len=PhenoStack$LengthGS
-  crs(Len)<-crs(shp)
+  crs(Len)<-crs(ROI)
   brk=seq(6,23, by=0.1)
   nbrk=length(brk)
-  writeRaster(Len, "LengthGS.img", overwrite=TRUE)
   plot(Len, main="LengthGS", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(6,23,by=2), labels=seq(6,23,by=2)), zlim=c(6,23))
 
-  AA=PhenoStack$Area_After
-  crs(AA)<-crs(shp)
+  AA=PhenoStack$TINDVIAfterMax
+  crs(AA)<-crs(ROI)
   brk=seq(0,6, by=0.0001)
   nbrk=length(brk)
   plot(AA, main="TINDVIAfterMax", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,6,by=2), labels=seq(0,6,by=2)), zlim=c(0,6))
-  writeRaster(AA, "TINDVIAfterMax.img", overwrite=TRUE)
 
-  AB=PhenoStack$Area_Before
-  crs(AB)<-crs(shp)
+  AB=PhenoStack$TINDVIBeforeMax
+  crs(AB)<-crs(ROI)
   brk=seq(0,6, by=0.0001)
   nbrk=length(brk)
   plot(AB, main="TINDVIBeforeMax", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,6,by=2), labels=seq(0,6,by=2)), zlim=c(0,6))
-  writeRaster(AB, "TINDVIBeforeMax.img", overwrite=TRUE)
-
 
   AT=PhenoStack$TINDVI
-  crs(AT)<-crs(shp)
+  crs(AT)<-crs(ROI)
   brk=seq(0,8, by=0.001)
   nbrk=length(brk)
   plot(AT, main="TINDVI", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,8,by=2), labels=seq(0,8,by=2)), zlim=c(0,8))
-  writeRaster(AT, "TINDVI.img", overwrite=TRUE)
-
 
   As=PhenoStack$Asymmetry
-  crs(As)<-crs(shp)
+  crs(As)<-crs(ROI)
   brk=seq(-6,6, by=0.0001)
   nbrk=length(brk)
   plot(As, main="Asymmetry", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(-6.0,6.0,by=3), labels=seq(-6.0,6.0,by=3)), zlim=c(-6,6))
-  writeRaster(As, "Asymmetry.img", overwrite=TRUE)
-
-
-  ##########################====================================##########################
 	return(PhenoStack)
   }
-
-  ##########################====================================##########################
-
 #===============================================================================================================
 
 
@@ -937,121 +876,3 @@ MultiPointsPlot<- function (VIStack){
   	ts.plot(Curve1, Curve2, Curve3, Curve4, Curve5, col=c(1:5))
   }
 }
-
-#
-# 	LTS=ncol(AP)
-#   LDT=nrow(AP)
-#   if (N>5){
-#     warning ('The maximum No of pixel to plot is 5')
-#
-#
-#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) || (is.numeric(Id4)==FALSE) || (is.numeric(Id5)==FALSE) ){
-#       stop ('ID should be numeric')
-#     }
-#-
-#
-#     if (missing (Id1) | missing(Id2) | missing (Id3) | missing (Id4) | missing (Id5)){
-#       stop('Id missed')
-#     }
-#     ts.plot((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])), (ts(as.matrix(AP[Id5,])[4:LTS])),  ylim=c(0,1), col=1:5)
-#     axis(2, at=seq(0,1,by=0.1))
-#
-#   }
-#
-#
-#   if (N==1){
-#     warning('only one pixel ploted')
-#
-#
-#     if ((is.numeric(Id1)==FALSE) ){
-#       stop ('ID should be numeric')
-#     }
-#
-#
-#
-#     if ((Id1>LDT)){
-#       stop ('Id out of range')
-#     }
-#
-#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), ylim=c(0,1))
-#     axis(2, at=seq(0,1,by=0.1))
-#   }
-#
-#   if (N==2){
-#     if (missing (Id1) || missing(Id2)){
-#       stop('Id missed')
-#     }
-#
-#
-#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) ){
-#       stop ('ID should be numeric')
-#     }
-#
-#
-#     if ((Id1>LDT) || (Id2>LDT)){
-#       stop ('Id out of range')
-#     }
-#
-#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), ylim=c(0,1), col=1:2)
-#     axis(2,  at=seq(0,1,by=0.1))
-#   }
-#   if (N==3){
-#     if ((missing (Id1)) || (missing(Id2)) || (missing (Id3))){
-#       stop ("Id missed")
-#     }
-#
-#
-#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) ){
-#       stop ('ID should be numeric')
-#     }
-#
-#
-#     if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT)){
-#       stop ('Id out of range')
-#     }
-#
-#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), ylim=c(0,1), col=1:3)
-#     axis(2,  at=seq(0,1,by=0.1))
-#   }
-#
-#   if (N==4){
-#     if (missing (Id1) || missing(Id2) || missing (Id3) || missing (Id4)){
-#       stop('Id missed')
-#     }
-#
-#
-#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) || (is.numeric(Id4)==FALSE) ){
-#       stop ('ID should be numeric')
-#     }
-#
-#
-#     if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT) || (Id4>LDT)){
-#       stop ('Id out of range')
-#     }
-#
-#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])),  ylim=c(0,1), col=1:4)
-#     axis(2, at=seq(0,1,by=0.1))
-#   }
-#   if (N==5){
-#     if (missing (Id1) || missing(Id2) || missing (Id3) || missing (Id4) || missing (Id5)){
-#       stop('Id missed')
-#     }
-#
-#
-#     if ((is.numeric(Id1)==FALSE) || (is.numeric(Id2)==FALSE) || (is.numeric(Id3)==FALSE) || (is.numeric(Id4)==FALSE) || (is.numeric(Id5)==FALSE) ){
-#       stop ('ID should be numeric')
-#     }
-#
-#
-#     if ((Id1>LDT) || (Id2>LDT) || (Id3>LDT) || (Id4>LDT) || (Id5>LDT) ){
-#       stop ('Id out of range')
-#     }
-#
-#     ts.plot ((ts(as.matrix(AP[Id1,])[4:LTS])), (ts(as.matrix(AP[Id2,])[4:LTS])), (ts(as.matrix(AP[Id3,])[4:LTS])), (ts(as.matrix(AP[Id4,])[4:LTS])), (ts(as.matrix(AP[Id5,])[4:LTS])), ylim=c(0,1),  col=1:5)
-#     axis(2, at=seq(0,1,by=0.1))
-#   }
-#   return ("..........Curves ploted............................")
-# }
-
-#======================================================================================================
-

@@ -4,7 +4,7 @@
 \alias{SinglePhenology}
 \title{Phenology plot per pixel}
 \usage{
-SinglePhenology(AnnualTS, Percentage = 20, Smoothing = FALSE)
+SinglePhenology(AnnualTS, Percentage, Smoothing = FALSE)
 }
 \arguments{
 \item{AnnualTS}{- annual time series}
