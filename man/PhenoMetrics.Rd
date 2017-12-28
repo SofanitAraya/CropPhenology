@@ -9,17 +9,17 @@ PhenoMetrics(VIStack, ROI = NULL, Percentage = NULL, Smoothing = NULL)
 \arguments{
 \item{VIStack}{- RasterStack - a raster stack from whichthe time series extracted}
 
-\item{ROI}{- a polygon designated for region of interest. It can be spatialPolygon object or extent.}
+\item{ROI}{- SpatialPolygon, SpatialPoints or extent object, which optionally define the region of interest.}
 
 \item{Percentage}{- Optional Numeric Vlaue - percentage of minimum NDVI value at which the Onset and Offset is defined. The 'Percentage' paramenter is optional; if not provided, a Default value of 20 will be taken.}
 
 \item{Smoothing}{- Optional logical value - if the user chooses to use smoothed curve or row/unsmoothed curve. If "Smoothing' is set to TRUE, the moving avegare filter will be applied to the vegetation index curve. The default value, if not provided, is FALSE, then the unsmoothed row data be used for the analysis.}
 }
 \value{
-PhenoStack - a raster stack of 15 images in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry
+A RasterStack of 15 Phenological metrics in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry.
 }
 \description{
-This function extracts 15 phenologic metrics from time series vegetaion index data, as raster and Ascii files. The function takes path of the vegetation index data and the boolean Value for BolAOI (True- if there is AOI polygon, FALSE- if the parameters are calculated for the whole region).
+This function extracts 15 phenological metrics that define the growth condition of crops.
 }
 \examples{
 #EXAMPLE - 1
@@ -30,7 +30,7 @@ PhenoMetrics(ExampleStack,ExampleROI )
 
 }
 \seealso{
-MultiPointsPlot (Path, N,Id1, Id2...IdN)
+MultiPointsPlot (VIStack)
 }
 \keyword{Phenology}
 \keyword{Time-series}
