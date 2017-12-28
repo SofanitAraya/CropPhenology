@@ -19,7 +19,7 @@
 #' @examples
 #' #EXAMPLE - 1
 #' ExampleROI=readOGR(system.file("extdata","ROI.shp", package="CropPhenology"))
-#' ExampleStack=stack(system.file("extdata/ExampleStack", package="CropPhenology"))
+#' ExampleStack=stack(system.file("extdata", "ExampleStack", package="CropPhenology"))
 #'
 #' PhenoMetrics(ExampleStack,ExampleROI )
 #'
