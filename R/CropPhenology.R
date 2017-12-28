@@ -3,13 +3,13 @@
 #======================================================================================================================================
 #' Phenologic metrics from time series vegetation index data
 #'
-#' @return  PhenoStack - a raster stack of 15 images in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry
+#' @return  A RasterStack of 15 phenoloical metric images in the order of OnsetV, OnsetT, MaxV, MaxT, OffsetV, OffsetT, LengthGS, BeforeMaxT, AfterMaxT, GreenUpSlope, BrownDownSlope, TINDVI, TINDVIBeforeMax, TINDVIAfterMax, Asymmetry
 #' @keywords Phenology
 #' @keywords remote sensing
 #' @keywords satellite image
 #' @keywords Time-series
-#' @seealso MultiPointsPlot (Path, N,Id1, Id2...IdN)
-#' @description This function extracts 15 phenologic metrics from time series vegetaion index data, as raster and Ascii files. The function takes path of the vegetation index data and the boolean Value for BolAOI (True- if there is AOI polygon, FALSE- if the parameters are calculated for the whole region).
+#' @seealso MultiPointsPlot (VIStack)
+#' @description This function extracts 15 Phenological metrics that indicate the growth conditon of crops, from multi-temporal vegetaion index images.
 #' @param VIStack - RasterStack - a raster stack from whichthe time series extracted
 #' @param ROI - a polygon designated for region of interest. It can be spatialPolygon object or extent.
 #' @param Percentage - Optional Numeric Vlaue - percentage of minimum NDVI value at which the Onset and Offset is defined. The 'Percentage' paramenter is optional; if not provided, a Default value of 20 will be taken.
@@ -815,10 +815,11 @@ SinglePhenology <- function (AnnualTS, Percentage, Smoothing = FALSE) {
 #' @export
 #' @return Multiple time series curves together at the plot panel
 #' @title Time series curves for Multiple points in the Region of Interest
-#' @description MultiPointsPlot function takes the ID for the pixels within the region of interst and returns, the timeseries curves from these points, ploted together. The Id numbers can be obtained from the txt file (AllPixels.txt) outputs.
-#' @keywords Curve from multiple points
+#' @description MultiPointsPlot function allows the user to plot of vegetation dynamics curves from multiple points.
+#' @keywords Dynamics Curves
+#' @keywords  multiple points
 #' @keywords time-series curves
-#' @details This function allows plotting time series curves from multiple points together in a single plot which helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
+#' @details Plotting dynamics curves from multiple points together in a single plot helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
 #' @param VIStack - RasterStack of time series vegetation index images
 #'
 #'

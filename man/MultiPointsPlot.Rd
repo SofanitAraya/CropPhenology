@@ -13,17 +13,17 @@ MultiPointsPlot(VIStack)
 Multiple time series curves together at the plot panel
 }
 \description{
-MultiPointsPlot allow the user to provide multiple locations to extract vegetation index dynamics curves and ploted together.
+MultiPointsPlot function allows the user to plot of vegetation dynamics curves from multiple points.
 }
 \details{
-This function allows plotting time series curves from multiple points together in a single plot which helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
+Plotting dynamics curves from multiple points together in a single plot helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
 }
 \seealso{
 PhenoMetrics()
 }
-\keyword{Curve}
+\keyword{Curves}
+\keyword{Dynamics}
 \keyword{curves}
-\keyword{from}
 \keyword{multiple}
 \keyword{points}
 \keyword{time-series}
