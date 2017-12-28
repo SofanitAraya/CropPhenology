@@ -23,8 +23,7 @@ This function extracts 15 phenologic metrics from time series vegetaion index da
 }
 \examples{
 #EXAMPLE - 1
-readOGR(dsn=path.expand("~/R/funwithR/data/ne_110m_land"), layer="ne_110m_land")
-ExampleROI=readOGR(system.file("extdata","ROI.shp", package="CropPhenology"))
+ExampleROI=readOGR(system.file("extdata","ROI.shp", package="CropPhenology")
 ExampleStack=stack(system.file("extdata/ExampleStack", package="CropPhenology"))
 
 PhenoMetrics(ExampleStack,ExampleROI )
