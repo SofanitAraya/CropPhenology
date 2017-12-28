@@ -21,7 +21,7 @@ Plotting a time series of vegetation index values across time creates a curve th
 Overview of data processing
 
 
-CropPhenology has three functions: PhenoMetrics and MultiPointsPlot.
+CropPhenology has three functions: PhenoMetrics, SinglePhenology and MultiPointsPlot.
 
 SinglePhenology:- provides phenological metrics for a single pixel. It allows to implement other preprocessing steps on the vegetation index curve, such as smoothing. The following example illustrate the use of Savitzky-Golay smoothing on the single pixed prior to the phenological extraction.
 
@@ -40,7 +40,7 @@ SinglePhenology:- provides phenological metrics for a single pixel. It allows to
 
 \figure{Figure5}
 
-PhenoMetrics:- takes the path for the time series vegetation index data and the vector file that defines the Area of Interest (AOI). It extracts fifteen phenological metrics (Figure 2) which represent the seasonal growth condition of the crop at each pixel for the season. The output is presented as a raster stack of phenological metrics or a table of phenological metrics for point AOI.  Table 1 summaises the defined metrics and their descriptions.
+PhenoMetrics:- takes a RasterStack of vegetation index images and a spatialPolygon, extent or SpatialPoints object that defines the Region of Interest (ROI). This function extracts fifteen phenological metrics which represent the seasonal growth condition of the crop at each pixel for the season (Figure 2). The output is presented as a RasterStack of phenological metrics. Table 1 summaises the defined metrics and their descriptions.
 
 \figure{Figure2}
 
