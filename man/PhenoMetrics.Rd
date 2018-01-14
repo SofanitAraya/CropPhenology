@@ -21,14 +21,6 @@ A RasterStack of 15 phenoloical metric images in the order of OnsetV, OnsetT, Ma
 \description{
 This function extracts 15 Phenological metrics that indicate the growth conditon of crops, from multi-temporal vegetaion index images.
 }
-\examples{
-#EXAMPLE - 1
-ExampleROI=readOGR(system.file("extdata","ROI.shp", package="CropPhenology"))
-ExampleStack=stack(system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
-
-PhenoMetrics(ExampleStack,ExampleROI )
-
-}
 \seealso{
 MultiPointsPlot (VIStack)
 }

@@ -16,12 +16,11 @@
 #' @param Smoothing - Optional logical value - if the user chooses to use smoothed curve or row/unsmoothed curve. If "Smoothing' is set to TRUE, the moving avegare filter will be applied to the vegetation index curve. The default value, if not provided, is FALSE, then the unsmoothed row data be used for the analysis.
 #'
 #' @export
-#' @examples
-#' #EXAMPLE - 1
-#' ExampleROI=readOGR(system.file("extdata","ROI.shp", package="CropPhenology"))
-#' ExampleStack=stack(system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
-#'
-#' PhenoMetrics(ExampleStack,ExampleROI )
+#' @example
+#' #EXAMPLE
+#' ExampleROI<- readOGR (system.file("extdata","ROI.shp", package="CropPhenology"))
+#' ExampleStack<- stack (system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
+#' PhenoStack<- PhenoMetrics (ExampleStack,ExampleROI )
 #'
 
 PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
@@ -185,7 +184,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
       for ( r in 1:(dim(g))[1]) {
         for ( c in 1:(dim(g))[2]) {
           t1 <- (as.vector(g[r,c,]))
-          p1=t1/10000
+          p1=t1
           PhenoArray[r,c,] = SinglePhenology(p1, Percentage, Smoothing)
         }
       }
@@ -210,7 +209,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
       for ( r in 1:(dim(g))[1]) {
         for ( c in 1:(dim(g))[2]) {
           t1 <- (as.vector(g[r,c,]))
-          p1=t1/10000
+          p1=t1
           PhenoArray[r,c,] = SinglePhenology(p1, Percentage, Smoothing)
         }
       }
@@ -225,7 +224,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
     if (class(ROI)== "SpatialPointsDataFrame"){
     	crs(ROI)= crs(VIStack)
 			pcor = coordinates(ROI)
-      ModisCurves = extract(VIStack,pcor[,1:2]) / 10000
+      ModisCurves = extract(VIStack,pcor[,1:2])
       ModisCurves[is.na(ModisCurves)] <- 0
       PhenoArray = array(dim = c(nrow(ModisCurves), 15))
       for (i in 1:nrow(ModisCurves)){
@@ -285,7 +284,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 
     	crs(ROI)= crs(VIStack)
 			pcor = coordinates(ROI)
-      ModisCurves = extract(VIStack,pcor[,1:2]) / 10000
+      ModisCurves = extract(VIStack,pcor[,1:2])
       ModisCurves[is.na(ModisCurves)] <- 0
       PhenoArray = array(dim = c(nrow(ModisCurves), 15))
       for (i in 1:nrow(ModisCurves)){
@@ -337,6 +336,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
   }
 
   if (is.null(ROI) == TRUE){
+  	imageStack= VIStack
 
     imageArray <- as.array(VIStack)
     PhenoArray = array(dim = c(dim(imageArray)[1],dim(imageArray)[2],15))
@@ -461,15 +461,34 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 #===============================================================================================================
 # SinglePhenology - calculates phenologic metrics for each pixel and return to the PhenoMetrics function
 #' @export
-#' @return return phenologic metrics for a single pixel
+#' @return return phenologic metrics for a single pixel as an array in the sequence of: OnsetV, OnsetT, OffsetV, OffsetT, MAxV, MaxT, TINDVI, TINDVIBeforeMax, TINDVIAfeterMax, Assymetry, GreenUpSlope, BrownDownSlope, LengthGS, BeforeMaxT, AfterMaxT".
 #' @title Phenology plot per pixel
 #' @name SinglePhenology
 #' @param AnnualTS - annual time series
 #' @param Percentage - the percentage threshold for Onset and Offset
 #' @param Smoothing - moving average smoothing applied if TRUE
-#' @description SinglePhenology is a premitive function which takes a time series vegetation index data for a single pixel for a single season
-#'
-SinglePhenology <- function (AnnualTS, Percentage, Smoothing = FALSE) {
+#' @description SinglePhenology is a premitive function which takes a time series vegetation index data for a single pixel for a single season.
+#' @seealso MultiPointsPlot, PhenoMetrics
+#' @example
+#' #Example
+#' Point <- c(0.2052, 0.1824, 0.1780, 0.1732, 0.1861, 0.1863, 0.1884, 0.2202, 0.2669, 0.2708, 0.3700, 0.5900, 0.6909, 0.6057, 0.6750, 0.5572, 0.4990, 0.3463, 0.2579, 0.2167, 0.1672, 0.1771, 0.1856)
+#' SinglePhenology(Point)
+SinglePhenology <- function (AnnualTS, Percentage=NULL, Smoothing = FALSE) {
+	 #===========================================================================
+  if (is.null(Percentage)==TRUE) {
+    print ("The default Threshold Percentage value, 20%, will be applied")
+    Percentage=20
+  }
+  if (!is.numeric(Percentage)){
+    stop("Percentage value for Onset and Offset should be numeric")
+  }
+  if (Percentage<0){
+    stop("Negative Onset-Offset percentage specified")
+  }
+  if (Percentage==0){
+    stop("percentage Thrshold should be greated than 0")
+  }
+  #===========================================================================
   if(sum(is.na(AnnualTS)) > 0) {
     PVector = rep(NA,15)
     return(PVector)
@@ -801,6 +820,7 @@ SinglePhenology <- function (AnnualTS, Percentage, Smoothing = FALSE) {
   PVector[14] = Max_Time - Onset_Time                                           # BeforeMaxT
   PVector[15] = Offset_Time - Max_Time                                          # AfterMaxT
 
+
   return(PVector)
   print("The phenologic metrics in the sequence of: OnsetV, OnsetT, OffsetV, OffsetT, MAxV, MaxT, TINDVI, TINDVIBeforeMax, TINDVIAfeterMax, Assymetry, GreenUpSlope, BrownDownSlope, LengthGS, BeforeMaxT, AfterMaxT")
 }
@@ -821,10 +841,12 @@ SinglePhenology <- function (AnnualTS, Percentage, Smoothing = FALSE) {
 #' @keywords time-series curves
 #' @details Plotting dynamics curves from multiple points together in a single plot helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
 #' @param VIStack - RasterStack of time series vegetation index images
+#' @example
+#' #EXAMPLE
+#' ExampleStack<- stack(system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
+#' MultiPointsPlot(ExampleStack)
 #'
-#'
-#'
-#' @seealso PhenoMetrics()
+#' @seealso PhenoMetrics, SinglePhenology
 #'
 MultiPointsPlot<- function (VIStack){
 
@@ -846,7 +868,7 @@ MultiPointsPlot<- function (VIStack){
   	i=1
   	cur=ts(1:nlayers(VIStack))
   	for (i in 1:N){
-  		print (i)
+  		#print (i)
   		id1=PList$cell[i]
   		cur[1]=extract(VIStack[[1]], id1)
   		j=2
@@ -854,8 +876,8 @@ MultiPointsPlot<- function (VIStack){
   			cur[j]=extract(VIStack[[j]], id1)
   			#print (cur[j])
   		}
-  		print (cur)
-  		print (N)
+  		#print (cur)
+  		#print (N)
   		assign(paste0("Curve",i), cur)
   	}
   }

@@ -19,7 +19,7 @@ MultiPointsPlot function allows the user to plot of vegetation dynamics curves f
 Plotting dynamics curves from multiple points together in a single plot helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
 }
 \seealso{
-PhenoMetrics()
+PhenoMetrics, SinglePhenology
 }
 \keyword{Curves}
 \keyword{Dynamics}

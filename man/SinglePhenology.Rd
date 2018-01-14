@@ -4,7 +4,7 @@
 \alias{SinglePhenology}
 \title{Phenology plot per pixel}
 \usage{
-SinglePhenology(AnnualTS, Percentage, Smoothing = FALSE)
+SinglePhenology(AnnualTS, Percentage = NULL, Smoothing = FALSE)
 }
 \arguments{
 \item{AnnualTS}{- annual time series}
@@ -14,8 +14,11 @@ SinglePhenology(AnnualTS, Percentage, Smoothing = FALSE)
 \item{Smoothing}{- moving average smoothing applied if TRUE}
 }
 \value{
-return phenologic metrics for a single pixel
+return phenologic metrics for a single pixel as an array in the sequence of: OnsetV, OnsetT, OffsetV, OffsetT, MAxV, MaxT, TINDVI, TINDVIBeforeMax, TINDVIAfeterMax, Assymetry, GreenUpSlope, BrownDownSlope, LengthGS, BeforeMaxT, AfterMaxT".
 }
 \description{
-SinglePhenology is a premitive function which takes a time series vegetation index data for a single pixel for a single season
+SinglePhenology is a premitive function which takes a time series vegetation index data for a single pixel for a single season.
+}
+\seealso{
+MultiPointsPlot, PhenoMetrics
 }
