@@ -21,4 +21,8 @@ SinglePhenology is a premitive function which takes a time series vegetation ind
 }
 \seealso{
 MultiPointsPlot, PhenoMetrics
+
+#Example
+Point <- c(0.2052, 0.1824, 0.1780, 0.1732, 0.1861, 0.1863, 0.1884, 0.2202, 0.2669, 0.2708, 0.3700, 0.5900, 0.6909, 0.6057, 0.6750, 0.5572, 0.4990, 0.3463, 0.2579, 0.2167, 0.1672, 0.1771, 0.1856)
+SinglePhenology(Point)
 }

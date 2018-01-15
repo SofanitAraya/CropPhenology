@@ -7,7 +7,11 @@
 MultiPointsPlot(VIStack)
 }
 \arguments{
-\item{VIStack}{- RasterStack of time series vegetation index images}
+\item{VIStack}{- RasterStack of time series vegetation index images
+
+#EXAMPLE
+ExampleStack<- stack(system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
+MultiPointsPlot(ExampleStack)}
 }
 \value{
 Multiple time series curves together at the plot panel
