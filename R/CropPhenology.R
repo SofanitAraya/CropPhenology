@@ -224,7 +224,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
     if (class(ROI)== "SpatialPointsDataFrame"){
     	crs(ROI)= crs(VIStack)
 			pcor = coordinates(ROI)
-      ModisCurves = extract(VIStack,pcor[,1:2])
+      ModisCurves = extract(VIStack,pcor)
       ModisCurves[is.na(ModisCurves)] <- 0
       PhenoArray = array(dim = c(nrow(ModisCurves), 15))
       for (i in 1:nrow(ModisCurves)){
@@ -355,11 +355,26 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
     names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
 
   }
+	return(PhenoStack)
+  }
+#===============================================================================================================
 
 
-  #===================================================================================================
-
-  par(mfrow=c(2,2))
+#===================================================================================================
+#===============================================================================================================
+#                                     PhenoPlot Function
+#===============================================================================================================
+# PhenoPlot - plots the raster phenological metrics returned from PhenoMetrics function
+#' @export
+#' @return plots  15 phenological metrics
+#' @title plot phenological metrics in a raster format Phenology plot per pixel
+#' @name PhenoPlot
+#' @param PhenoStack - RasterStack object of phenological metrics
+#' @description PhenoPlot takes the output file of the PhenoMetrics function and plot the raster matrics.
+#' @seealso MultiPointsPlot, PhenoMetrics, SinglePhenology
+#'
+SinglePhenology <- function (PhenoStack) {
+	par(mfrow=c(2,2))
   OT=PhenoStack$Onset_Time
   crs(OT)<-crs(ROI)
   brk=seq(2,16, by=0.01)
@@ -450,10 +465,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
   brk=seq(-6,6, by=0.0001)
   nbrk=length(brk)
   plot(As, main="Asymmetry", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(-6.0,6.0,by=3), labels=seq(-6.0,6.0,by=3)), zlim=c(-6,6))
-	return(PhenoStack)
-  }
-#===============================================================================================================
-
+}
 
 
 #===============================================================================================================
