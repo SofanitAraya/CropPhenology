@@ -2,16 +2,15 @@
 % Please edit documentation in R/CropPhenology.R
 \name{PhenoPlot}
 \alias{PhenoPlot}
-\alias{SinglePhenology}
-\title{plot phenological metrics in a raster format Phenology plot per pixel}
+\title{Plot phenological metrics in a raster format Phenology plot per pixel}
 \usage{
-SinglePhenology(AnnualTS, Percentage = NULL, Smoothing = FALSE)
+PhenoPlot(PhenoStack)
 }
 \arguments{
 \item{PhenoStack}{- RasterStack object of phenological metrics}
 }
 \value{
-plots  15 phenological metrics
+Plots  15 phenological metrics
 }
 \description{
 PhenoPlot takes the output file of the PhenoMetrics function and plot the raster matrics.

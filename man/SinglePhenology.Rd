@@ -2,7 +2,7 @@
 % Please edit documentation in R/CropPhenology.R
 \name{SinglePhenology}
 \alias{SinglePhenology}
-\title{Phenology plot per pixel}
+\title{Phenological metrics extraction for a single pixel}
 \usage{
 SinglePhenology(AnnualTS, Percentage = NULL, Smoothing = FALSE)
 }

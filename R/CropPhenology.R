@@ -357,23 +357,20 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
   }
 	return(PhenoStack)
   }
-#===============================================================================================================
 
-
-#===================================================================================================
 #===============================================================================================================
 #                                     PhenoPlot Function
 #===============================================================================================================
-# PhenoPlot - plots the raster phenological metrics returned from PhenoMetrics function
+# PhenoPlot - Plots the raster phenological metrics returned from PhenoMetrics function
 #' @export
-#' @return plots  15 phenological metrics
-#' @title plot phenological metrics in a raster format Phenology plot per pixel
+#' @return Plots  15 phenological metrics
+#' @title Plot phenological metrics in a raster format Phenology plot per pixel
 #' @name PhenoPlot
 #' @param PhenoStack - RasterStack object of phenological metrics
 #' @description PhenoPlot takes the output file of the PhenoMetrics function and plot the raster matrics.
 #' @seealso MultiPointsPlot, PhenoMetrics, SinglePhenology
 #'
-SinglePhenology <- function (PhenoStack) {
+PhenoPlot <- function (PhenoStack) {
 	par(mfrow=c(2,2))
   OT=PhenoStack$Onset_Time
   crs(OT)<-crs(ROI)
@@ -474,7 +471,7 @@ SinglePhenology <- function (PhenoStack) {
 # SinglePhenology - calculates phenologic metrics for each pixel and return to the PhenoMetrics function
 #' @export
 #' @return return phenologic metrics for a single pixel as an array in the sequence of: OnsetV, OnsetT, OffsetV, OffsetT, MAxV, MaxT, TINDVI, TINDVIBeforeMax, TINDVIAfeterMax, Assymetry, GreenUpSlope, BrownDownSlope, LengthGS, BeforeMaxT, AfterMaxT".
-#' @title Phenology plot per pixel
+#' @title Phenological metrics extraction for a single pixel
 #' @name SinglePhenology
 #' @param AnnualTS - annual time series
 #' @param Percentage - the percentage threshold for Onset and Offset
