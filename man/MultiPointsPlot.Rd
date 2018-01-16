@@ -7,11 +7,7 @@
 MultiPointsPlot(VIStack)
 }
 \arguments{
-\item{VIStack}{- RasterStack of time series vegetation index images
-
-#EXAMPLE
-ExampleStack<- stack(system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
-MultiPointsPlot(ExampleStack)}
+\item{VIStack}{- RasterStack of time series vegetation index images}
 }
 \value{
 Multiple time series curves together at the plot panel
@@ -21,6 +17,12 @@ MultiPointsPlot function allows the user to plot of vegetation dynamics curves f
 }
 \details{
 Plotting dynamics curves from multiple points together in a single plot helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
+}
+\examples{
+#EXAMPLE
+ExampleStack<- stack(system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
+MultiPointsPlot(ExampleStack)
+
 }
 \seealso{
 PhenoMetrics, SinglePhenology

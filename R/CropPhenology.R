@@ -16,7 +16,7 @@
 #' @param Smoothing - Optional logical value - if the user chooses to use smoothed curve or row/unsmoothed curve. If "Smoothing' is set to TRUE, the moving avegare filter will be applied to the vegetation index curve. The default value, if not provided, is FALSE, then the unsmoothed row data be used for the analysis.
 #'
 #' @export
-#'
+#' @examples
 #' #EXAMPLE
 #' ExampleROI<- readOGR (system.file("extdata","ROI.shp", package="CropPhenology"))
 #' ExampleStack<- stack (system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
@@ -479,6 +479,7 @@ PhenoPlot <- function (PhenoStack) {
 #' @description SinglePhenology is a premitive function which takes a time series vegetation index data for a single pixel for a single season.
 #' @seealso MultiPointsPlot, PhenoMetrics
 #'
+#' @examples
 #' #Example
 #' Point <- c(0.2052, 0.1824, 0.1780, 0.1732, 0.1861, 0.1863, 0.1884, 0.2202, 0.2669, 0.2708, 0.3700, 0.5900, 0.6909, 0.6057, 0.6750, 0.5572, 0.4990, 0.3463, 0.2579, 0.2167, 0.1672, 0.1771, 0.1856)
 #' SinglePhenology(Point)
@@ -851,6 +852,7 @@ SinglePhenology <- function (AnnualTS, Percentage=NULL, Smoothing = FALSE) {
 #' @details Plotting dynamics curves from multiple points together in a single plot helps understanding the growth variability across the field.This inforaiton allow observation of the spatial and temporal crop growth variability across the growth seasons, which provide important information about the environmental factors influencing crop growth and thus potential opportunities for influencing crop management (eg . Araya et al., 2016)
 #' @param VIStack - RasterStack of time series vegetation index images
 #'
+#' @examples
 #' #EXAMPLE
 #' ExampleStack<- stack(system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
 #' MultiPointsPlot(ExampleStack)
