@@ -8,7 +8,7 @@
 #' @keywords remote sensing
 #' @keywords satellite image
 #' @keywords Time-series
-#' @seealso MultiPointsPlot (VIStack)
+#' @seealso MultiPointsPlot, PhenoPlot
 #' @description This function extracts 15 Phenological metrics that indicate the growth conditon of crops, from multi-temporal vegetaion index images.
 #' @param VIStack - RasterStack - a raster stack from whichthe time series extracted
 #' @param ROI - a polygon designated for region of interest. It can be spatialPolygon object or extent.
@@ -21,7 +21,7 @@
 #' ExampleROI<- readOGR (system.file("extdata","ROI.shp", package="CropPhenology"))
 #' ExampleStack<- stack (system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
 #' PhenoStack<- PhenoMetrics (ExampleStack,ExampleROI )
-#'
+#' CropPhenology::PhenoPlot(PhenoStack)
 
 PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 	require(xlsx)
@@ -373,7 +373,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 PhenoPlot <- function (PhenoStack) {
 	par(mfrow=c(2,2))
   OT=PhenoStack$Onset_Time
-  crs(OT)<-crs(ROI)
+  #crs(OT)<-crs(ROI)
   brk=seq(2,16, by=0.01)
   nbrk=length(brk)
   plot(OT, main="OnsetT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(2,16,by=2), labels=seq(2,16,by=2)), zlim=c(2,16))
@@ -381,84 +381,84 @@ PhenoPlot <- function (PhenoStack) {
   OV=PhenoStack$Onset_Value
   brk=seq(0.1,0.6, by=0.001)
   nbrk=length(brk)
-  crs(OV)<-crs(ROI)
+  #crs(OV)<-crs(ROI)
   plot(OV, main="OnsetV", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0.1,0.6,by=0.2), labels=seq(0.1,0.6,by=0.2)), zlim=c(0.1,0.6))
 
   MT=PhenoStack$Max_Time
-  crs(MT)<-crs(ROI)
+  #crs(MT)<-crs(ROI)
   brk=seq(8,19, by=1)
   nbrk=length(brk)
   lblbrk=brk
   plot(MT, main="MaxT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(8,19,by=2), labels=seq(8,19,by=2)),zlim=c(8,19))
 
   MV=PhenoStack$Max_Value
-  crs(MV)<-crs(ROI)
+  #crs(MV)<-crs(ROI)
   brk=seq(0.2,1, by=0.1)
   nbrk=length(brk)
   plot(MV, main="MaxV", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0.2,1,by=0.2), labels=seq(0.2,1,by=0.2)), zlim=c(0.2,1))
 
   OFT=PhenoStack$Offset_Time
-  crs(OFT)<-crs(ROI)
+  #crs(OFT)<-crs(ROI)
   brk=seq(16,23, by=0.01)
   nbrk=length(brk)
   plot(OFT, main="OffsetT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(16,23,by=2), labels=seq(16,23,by=2)), zlim=c(16,23))
 
   OFV=PhenoStack$Offset_Value
-  crs(OFV)<-crs(ROI)
+  #crs(OFV)<-crs(ROI)
   brk=seq(0,0.4, by=0.001)
   nbrk=length(brk)
   plot(OFV, main="OffsetV", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,0.4,by=0.1), labels=seq(0,0.4,by=0.1)), zlim=c(0,0.4))
 
   GUS=PhenoStack$GreenUpSlope
-  crs(GUS)<-crs(ROI)
+  #crs(GUS)<-crs(ROI)
   brk=seq(0,0.25, by=0.00001)
   nbrk=length(brk)
   plot(GUS, main="GreenUpSlope", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,0.25,by=0.1), labels=seq(0,0.25,by=0.1)),zlim=c(0,0.25))
 
   BDS=PhenoStack$BrownDownSlope
-  crs(BDS)<-crs(ROI)
+  #crs(BDS)<-crs(ROI)
   brk=seq(0,0.25, by=0.00001)
   nbrk=length(brk)
   plot(BDS, main="BrownDownSlope", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,0.25,by=0.1), labels=seq(0,0.25,by=0.1)),zlim=c(0,0.25))
 
   BefMaxT=PhenoStack$BeforeMaxT
-  crs(BefMaxT)<-crs(ROI)
+  #crs(BefMaxT)<-crs(ROI)
   brk=seq(0,19, by=0.01)
   nbrk=length(brk)
   plot(BefMaxT, main="BeforeMaxT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,19,by=2), labels=seq(0,19,by=2)), zlim=c(0,19))
 
   AftMaxT=PhenoStack$AfterMaxT
-  crs(AftMaxT)<-crs(ROI)
+  #crs(AftMaxT)<-crs(ROI)
   brk=seq(0,12, by=0.01)
   nbrk=length(brk)
   plot(AftMaxT, main="AfterMaxT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,12,by=2), labels=seq(0,12,by=2)), zlim=c(0,12))
 
   Len=PhenoStack$LengthGS
-  crs(Len)<-crs(ROI)
+  #crs(Len)<-crs(ROI)
   brk=seq(6,23, by=0.1)
   nbrk=length(brk)
   plot(Len, main="LengthGS", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(6,23,by=2), labels=seq(6,23,by=2)), zlim=c(6,23))
 
   AA=PhenoStack$TINDVIAfterMax
-  crs(AA)<-crs(ROI)
+  #crs(AA)<-crs(ROI)
   brk=seq(0,6, by=0.0001)
   nbrk=length(brk)
   plot(AA, main="TINDVIAfterMax", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,6,by=2), labels=seq(0,6,by=2)), zlim=c(0,6))
 
   AB=PhenoStack$TINDVIBeforeMax
-  crs(AB)<-crs(ROI)
+  #crs(AB)<-crs(ROI)
   brk=seq(0,6, by=0.0001)
   nbrk=length(brk)
   plot(AB, main="TINDVIBeforeMax", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,6,by=2), labels=seq(0,6,by=2)), zlim=c(0,6))
 
   AT=PhenoStack$TINDVI
-  crs(AT)<-crs(ROI)
+  #crs(AT)<-crs(ROI)
   brk=seq(0,8, by=0.001)
   nbrk=length(brk)
   plot(AT, main="TINDVI", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(0,8,by=2), labels=seq(0,8,by=2)), zlim=c(0,8))
 
   As=PhenoStack$Asymmetry
-  crs(As)<-crs(ROI)
+  #crs(As)<-crs(ROI)
   brk=seq(-6,6, by=0.0001)
   nbrk=length(brk)
   plot(As, main="Asymmetry", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(-6.0,6.0,by=3), labels=seq(-6.0,6.0,by=3)), zlim=c(-6,6))
@@ -482,7 +482,10 @@ PhenoPlot <- function (PhenoStack) {
 #' @examples
 #' #Example
 #' Point <- c(0.2052, 0.1824, 0.1780, 0.1732, 0.1861, 0.1863, 0.1884, 0.2202, 0.2669, 0.2708, 0.3700, 0.5900, 0.6909, 0.6057, 0.6750, 0.5572, 0.4990, 0.3463, 0.2579, 0.2167, 0.1672, 0.1771, 0.1856)
-#' SinglePhenology(Point)
+#' PhenoPoint=SinglePhenology(Point)
+#' # Phenologic metrics in the sequence of OnsetV, OnsetT, OffsetV, OffsetT, MAxV, MaxT, TINDVI, TINDVIBeforeMax, TINDVIAfeterMax, Assymetry, GreenUpSlope, BrownDownSlope, LengthGS, BeforeMaxT, AfterMaxT
+#' print (PhenoPoint)
+#'
 SinglePhenology <- function (AnnualTS, Percentage=NULL, Smoothing = FALSE) {
 	 #===========================================================================
   if (is.null(Percentage)==TRUE) {

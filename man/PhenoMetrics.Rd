@@ -26,10 +26,10 @@ This function extracts 15 Phenological metrics that indicate the growth conditon
 ExampleROI<- readOGR (system.file("extdata","ROI.shp", package="CropPhenology"))
 ExampleStack<- stack (system.file("extdata", "ExampleStack.grd", package="CropPhenology"))
 PhenoStack<- PhenoMetrics (ExampleStack,ExampleROI )
-
+CropPhenology::PhenoPlot(PhenoStack)
 }
 \seealso{
-MultiPointsPlot (VIStack)
+MultiPointsPlot, PhenoPlot
 }
 \keyword{Phenology}
 \keyword{Time-series}
