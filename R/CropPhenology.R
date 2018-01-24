@@ -901,14 +901,19 @@ MultiPointsPlot<- function (VIStack){
 	}
   if (N==2){
   	ts.plot(Curve1, Curve2, col=c(1:2))
+  	legend("topright", c("Point1", "Point2"), col = c(1,2), lty = 1)
+
   }
   if (N==3){
   	ts.plot(Curve1, Curve2, Curve3, col=c(1:3))
+  	legend("topright", c("Point1", "Point2", "Point3"), col = c(1:3), lty = 1)
   }
   if (N==4){
   	ts.plot(Curve1, Curve2, Curve3, Curve4, col=c(1:4))
+  	legend("topright", c("Point1", "Point2", "Point3", "Point4"), col = c(1:4), lty = 1)
   }
   if (N==5){
   	ts.plot(Curve1, Curve2, Curve3, Curve4, Curve5, col=c(1:5))
+  	legend("topright", c("Point1", "Point2", "Point3", "Point4", "Point5"), col = c(1:5), lty = 1)
   }
 }
