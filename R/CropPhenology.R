@@ -872,17 +872,14 @@ MultiPointsPlot<- function (VIStack){
   par(mfrow=c(1,1))
   dis=VIStack[[1]]
   plot(dis)
-  PList=click(dis, n=5, cell=TRUE, xy=TRUE, show=FALSE)
-  N=length(PList)
+  print("Click on locations for multipleplot and press escape when you finish")
+  PList=click(dis, n= Inf, cell=TRUE, xy=TRUE, show=FALSE)
+    N=length(PList$x)
   if (is.null(PList)==FALSE ) {
-  	N=length(PList)
-  	if (N > 5) {
-  		warning ('The maximum No of pixel to plot is 5')
-  	}
+  	N=length(PList$x)
   	i=1
   	cur=ts(1:nlayers(VIStack))
   	for (i in 1:N){
-  		#print (i)
   		id1=PList$cell[i]
   		cur[1]=extract(VIStack[[1]], id1)
   		j=2
@@ -890,30 +887,30 @@ MultiPointsPlot<- function (VIStack){
   			cur[j]=extract(VIStack[[j]], id1)
   			#print (cur[j])
   		}
-  		#print (cur)
-  		#print (N)
+  		print (cur)
   		assign(paste0("Curve",i), cur)
   	}
   }
 
-	if (N==1){
-		ts.plot(ts(Curve1), col=1)
-	}
-  if (N==2){
-  	ts.plot(Curve1, Curve2, col=c(1:2))
-  	legend("topright", c("Point1", "Point2"), col = c(1,2), lty = 1)
+  MultiCurve=Curve1
+  leg="Point1"
+  k=1
 
+  for (k in 2:N){
+  	tempo=paste0("Curve",k)
+  	MultiCurve=cbind(MultiCurve,get(paste0("Curve",k)))
+  	leg[k]=paste0("Point",k)
   }
-  if (N==3){
-  	ts.plot(Curve1, Curve2, Curve3, col=c(1:3))
-  	legend("topright", c("Point1", "Point2", "Point3"), col = c(1:3), lty = 1)
-  }
-  if (N==4){
-  	ts.plot(Curve1, Curve2, Curve3, Curve4, col=c(1:4))
-  	legend("topright", c("Point1", "Point2", "Point3", "Point4"), col = c(1:4), lty = 1)
-  }
-  if (N==5){
-  	ts.plot(Curve1, Curve2, Curve3, Curve4, Curve5, col=c(1:5))
-  	legend("topright", c("Point1", "Point2", "Point3", "Point4", "Point5"), col = c(1:5), lty = 1)
+
+
+  par(mfrow=c(1,2))
+  ts.plot(MultiCurve, col=1:N, lwd=2)
+  legend("topleft", leg, col = 1:N, lty = 1, lwd=2)
+  plot(dis)
+  l=1
+  for (l in 1:N){
+		points(PList$x[l], PList$y[l], pch=8, col=l)
+  	text(PList$x[l], (PList$y[l]-600), col=l,labels=paste0("Point",l))
   }
 }
+
