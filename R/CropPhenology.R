@@ -29,6 +29,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 	require(sf)
 	require(roxygen2)
 	require(raster)
+	require(Rcpp)
 
 
   if(require('shapefiles')){
