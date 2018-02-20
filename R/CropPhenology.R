@@ -892,6 +892,9 @@ MultiPointsPlot<- function (VIStack){
   	}
   }
 
+  if (N == 0){
+  	quit()
+  }
   MultiCurve=Curve1
   leg="Point1"
   k=1
