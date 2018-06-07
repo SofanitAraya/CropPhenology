@@ -222,6 +222,33 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
     	names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
 
   	}
+  	if (class(ROI)== "SpatialPolygons"){
+  		tmpstack = crop(VIStack,ROI)
+      imageStack = mask(tmpstack,ROI)
+      #imgst=stack(imageStack)
+      g=array(, dim=dim(imageStack))
+      #g[,,]=imageStack[,,]
+      r=1
+      for (r in 1:(dim(imageStack)[1])){
+          g[r,,]  = imageStack[r,,]
+      }
+      PhenoArray = array(dim = c((dim(g))[1],(dim(g))[2],15))
+      PtArray=array(dim = c((dim(g))[1],(dim(g))[2]))
+      for ( r in 1:(dim(g))[1]) {
+        for ( c in 1:(dim(g))[2]) {
+          t1 <- (as.vector(g[r,c,]))
+          p1=t1
+          PhenoArray[r,c,] = SinglePhenology(p1, Percentage, Smoothing)
+        }
+      }
+
+      PhenoStack <- raster(PhenoArray[,,1], template = imageStack)
+      for (i in 2:15) {
+      	PhenoStack <- stack(PhenoStack,raster(PhenoArray[,,i], template = imageStack))
+      }
+    	names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+
+  	}
     if (class(ROI)== "SpatialPointsDataFrame"){
     	crs(ROI)= crs(VIStack)
 			pcor = coordinates(ROI)
