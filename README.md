@@ -8,7 +8,7 @@ install.packages ("devtools");library(devtools);install_github("SofanitAraya/Cro
 
 Running the tests - Two test data are availabel with the installation. It can be run from the R program.
 
-Built history - This package is built using R software, as part of the PhD resaerch of the first Author, at Spatial Information Group (SIG) of The University of Adelaide.
+Built history - This package is built using R software, as part of the PhD resaerch of the first Author, at Spatial Information Group (SIG) of The University of Adelaide. This project is supported by funding from The University of Adelaide.
 
 Authors - Sofanit Araya, Bertram Ostendorf, Megan Lewis and Greg Lyle
 
