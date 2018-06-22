@@ -429,7 +429,7 @@ PhenoPlot <- function (PhenoStack) {
   #crs(OFT)<-crs(ROI)
   brk=seq(16,23, by=0.01)
   nbrk=length(brk)
-  plot(OFT, main="OffsetT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(16,23,by=2), labels=seq(16,23,by=2)), zlim=c(16,23))
+  plot(OFT, main="OffsetT", breaks=brk, col=rev(terrain.colors(nbrk)), axis.arg=list(at=seq(14,23,by=2), labels=seq(14,23,by=2)), zlim=c(14,23))
 
   OFV=PhenoStack$Offset_Value
   #crs(OFV)<-crs(ROI)
