@@ -847,19 +847,19 @@ SinglePhenology <- function (AnnualTS, Percentage=NULL, Smoothing = FALSE) {
 
   PVector[1] = Onset_Value
   PVector[2] = Onset_Time
-  PVector[3] = Offset_Value
-  PVector[4] = Offset_Time
-  PVector[5] = Max_Value
-  PVector[6] = Max_Time
-  PVector[7] = Area_Total
-  PVector[8] = Area_Before
-  PVector[9] = Area_After
-  PVector[10] = (Area_Before - Area_After)
-  PVector[11] = (Max_Value - Onset_Value) / (Max_Time - Onset_Time)             # GreenUpSlope
-  PVector[12] = (Max_Value - Offset_Value) / (Offset_Time - Max_Time)           # BrownDownSlope
-  PVector[13] = Offset_Time - Onset_Time                                        # LengthGS
-  PVector[14] = Max_Time - Onset_Time                                           # BeforeMaxT
-  PVector[15] = Offset_Time - Max_Time                                          # AfterMaxT
+  PVector[3] = Max_Value #Offset_Value
+  PVector[4] = Max_Time #Offset_Time
+  PVector[5] = Offset_Value #Max_Value
+  PVector[6] = Offset_Time #Max_Time
+  PVector[7] = Offset_Time - Onset_Time #Area_Total
+  PVector[8] = Max_Time - Onset_Time #Area_Before
+  PVector[9] = Offset_Time - Max_Time #Area_After
+  PVector[10] = (Max_Value - Onset_Value) / (Max_Time - Onset_Time) #(Area_Before - Area_After)
+  PVector[11] = (Max_Value - Offset_Value) / (Offset_Time - Max_Time) #(Max_Value - Onset_Value) / (Max_Time - Onset_Time)             # GreenUpSlope
+  PVector[12] = Area_Before #(Max_Value - Offset_Value) / (Offset_Time - Max_Time)           # BrownDownSlope
+  PVector[13] = Area_After #Offset_Time - Onset_Time                                        # LengthGS
+  PVector[14] = Area_Total #Max_Time - Onset_Time                                           # BeforeMaxT
+  PVector[15] = Area_Before - Area_After #Offset_Time - Max_Time                                          # AfterMaxT
 
 
   return(PVector)
