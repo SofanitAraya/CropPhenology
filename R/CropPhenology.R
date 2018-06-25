@@ -193,7 +193,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
       for (i in 2:15) {
       	PhenoStack <- stack(PhenoStack,raster(PhenoArray[,,i], template = imageStack))
       }
-      names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+      names(PhenoStack) <- c('Onset_Value','Onset_Time','Max_Value','Max_Time','Offset_Value','Offset_Time','LengthGS','BeforeMaxT','AfterMaxT','GreenUpSlope','BrownDownSlope','TINDVIBeforeMax','TINDVIAfterMax','TINDVI','Asymmetry')
   	}
   	if (class(ROI)== "SpatialPolygonsDataFrame"){
   		tmpstack = crop(VIStack,ROI)
@@ -219,7 +219,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
       for (i in 2:15) {
       	PhenoStack <- stack(PhenoStack,raster(PhenoArray[,,i], template = imageStack))
       }
-    	names(PhenoStack) <- c('Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+    	names(PhenoStack) <- c('Onset_Value','Onset_Time','Max_Value','Max_Time','Offset_Value','Offset_Time','LengthGS','BeforeMaxT','AfterMaxT','GreenUpSlope','BrownDownSlope','TINDVIBeforeMax','TINDVIAfterMax','TINDVI','Asymmetry')
 
   	}
   	if (class(ROI)== "SpatialPolygons"){
