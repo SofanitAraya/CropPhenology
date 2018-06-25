@@ -293,7 +293,7 @@ PhenoMetrics<- function (VIStack, ROI=NULL, Percentage=NULL, Smoothing=NULL){
 
 
 
-      cnames = c('x','y', 'Onset_Value','Onset_Time','Offset_Value','Offset_Time','Max_Value','Max_Time','TINDVI','TINDVIBeforeMax','TINDVIAfterMax','Asymmetry','GreenUpSlope','BrownDownSlope','LengthGS','BeforeMaxT','AfterMaxT')
+      cnames = c('x','y', 'Onset_Value','Onset_Time','Max_Value','Max_Time','Offset_Value','Offset_Time','LengthGS','BeforeMaxT','AfterMaxT','GreenUpSlope','BrownDownSlope','TINDVIBeforeMax','TINDVIAfterMax','TINDVI','Asymmetry')
       PhenoDataframe = data.frame(cbind(pcor[,1], pcor[,2],PhenoArray))
       PointDataframe= data.frame(cbind(pcor[,1], pcor[,2], ModisCurves))
       colnames(PhenoDataframe) = cnames
